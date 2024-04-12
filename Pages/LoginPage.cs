@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Allure.NUnit.Attributes;
+using OpenQA.Selenium;
 using Testiny.Elements;
 
 namespace Testiny.Pages
@@ -20,12 +21,14 @@ namespace Testiny.Pages
         public Button LoginButton => new(Driver, _loginButtonBy);
         public UIElement ErrorLabel => new(Driver, _errorLabelBy);
 
+        [AllureStep("Input Username Value")]
         public LoginPage InputUsernameValue(string value)
         {
             UsernameInput.SendKeys(value);
             return this;
         }
 
+        [AllureStep("Input Password Value")]
         public LoginPage InputPasswordValue(string value)
         {
             PasswordInput.SendKeys(value);
