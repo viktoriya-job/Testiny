@@ -2,6 +2,7 @@
 using Testiny.Core;
 using Testiny.Helpers;
 using Testiny.Helpers.Configuration;
+using Testiny.Models;
 using Testiny.Steps;
 
 namespace Testiny.Tests;
@@ -13,14 +14,18 @@ public class BaseTest
     protected IWebDriver Driver { get; private set; }
     protected WaitsHelper WaitsHelper { get; private set; }
 
-    //protected UserSteps UserSteps;
+    protected NavigationSteps NavigationSteps;
+    protected ProjectsSteps ProjectSteps;
 
     [SetUp]
     public void FactoryDriverTest()
     {
         Driver = new Browser().Driver;
         WaitsHelper = new WaitsHelper(Driver, TimeSpan.FromSeconds(Configurator.WaitsTimeout));
-        //UserSteps = new UserSteps(Driver);
+
+        NavigationSteps = new NavigationSteps(Driver);
+        ProjectSteps = new ProjectsSteps(Driver);
+
         Driver.Navigate().GoToUrl(Configurator.AppSettings.URL);
     }
 

@@ -62,7 +62,6 @@ namespace Testiny.Helpers.Configuration
                     user.UserType = section["UserType"].ToLower() switch
                     {
                         "admin" => UserType.Admin,
-                        "user" => UserType.Standard,
                         _ => user.UserType
                     };
 
