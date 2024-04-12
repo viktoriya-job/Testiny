@@ -7,15 +7,15 @@ namespace Testiny.Pages
     {
         private static string _endPoint = "";
         private static readonly By _titleIconBy = By.Id("icon-logo-mainbar");
-        private static readonly By _projectsMenuBy = By.Id("portal-root");
-        private static readonly By _buttonAccountMenuBy = By.CssSelector("[data-testid='button-account']>div");
+        private static readonly By _projectsMenuBy = By.CssSelector("[data-testid='button-projects']>div");
+        private static readonly By _accountMenuBy = By.CssSelector("[data-testid='button-account']>div");
 
         public TopMenuPage(IWebDriver driver) : base(driver) { }
         public TopMenuPage(IWebDriver driver, bool openPageByUrl) : base(driver, openPageByUrl) { }
 
         public UIElement TitleIcon => new(Driver, _titleIconBy);
         public DropDownMenu ProjectsMenu => new(Driver, _projectsMenuBy);
-        public DropDownMenu ButtonAccountMenu => new(Driver, _buttonAccountMenuBy);
+        public DropDownMenu AccountMenu => new(Driver, _accountMenuBy);
 
         protected override string GetEndpoint()
         {
@@ -26,7 +26,7 @@ namespace Testiny.Pages
         {
             try
             {
-                return TitleIcon.Enabled;
+                return ProjectsMenu.Enabled;
             }
             catch (Exception)
             {

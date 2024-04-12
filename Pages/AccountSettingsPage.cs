@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Allure.NUnit.Attributes;
+using OpenQA.Selenium;
 using Testiny.Elements;
 
 namespace Testiny.Pages
@@ -16,6 +17,7 @@ namespace Testiny.Pages
         public Button AvatarButton => new(Driver, _avatarButtonBy);
         public TopMenuPage topMenu => new TopMenuPage(Driver);
 
+        [AllureStep("Checking is the avatar file added")]
         public bool AvatarAdded()
         {
             if (AvatarButton.Text.Trim() == "Remove avatar")
@@ -26,6 +28,7 @@ namespace Testiny.Pages
 
         protected override string GetEndpoint() => _endPoint;
 
+        [AllureStep("Checking is the Account settings page opened")]
         public override bool IsPageOpened()
         {
             try

@@ -1,4 +1,7 @@
-﻿using OpenQA.Selenium;
+﻿using Allure.Net.Commons;
+using Allure.NUnit;
+using OpenQA.Selenium;
+using System.Text;
 using Testiny.Core;
 using Testiny.Helpers;
 using Testiny.Helpers.Configuration;
@@ -9,6 +12,7 @@ namespace Testiny.Tests;
 
 [Parallelizable(scope: ParallelScope.All)]
 [FixtureLifeCycle(LifeCycle.InstancePerTestCase)]
+[AllureNUnit]
 public class BaseTest
 {
     protected IWebDriver Driver { get; private set; }
@@ -16,6 +20,12 @@ public class BaseTest
 
     protected NavigationSteps NavigationSteps;
     protected ProjectsSteps ProjectSteps;
+
+    [OneTimeSetUp]
+    public static void OneTimeSetup()
+    {
+        AllureLifecycle.Instance.CleanupResultDirectory();
+    }
 
     [SetUp]
     public void FactoryDriverTest()
@@ -32,12 +42,21 @@ public class BaseTest
     [TearDown]
     public void TearDown()
     {
-        if (TestContext.CurrentContext.Result.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
+        try
         {
-            Screenshot screenshot = ((ITakesScreenshot)Driver).GetScreenshot();
-            byte[] screenshotBytes = screenshot.AsByteArray;
+            if (TestContext.CurrentContext.Result.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
+            {
+                Screenshot screenshot = ((ITakesScreenshot)Driver).GetScreenshot();
+                byte[] screenshotBytes = screenshot.AsByteArray;
+
+                AllureApi.AddAttachment("Screenshot", "image/png", screenshotBytes);
+                AllureApi.AddAttachment("error.txt", "text/plain", Encoding.UTF8.GetBytes(TestContext.CurrentContext.Result.Message));
+            }
         }
 
-        Driver.Quit();
+        finally
+        {
+            Driver.Quit();
+        }
     }
 }

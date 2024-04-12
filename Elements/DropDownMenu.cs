@@ -5,14 +5,24 @@ namespace Testiny.Elements
     public class DropDownMenu
     {
         private UIElement _uiElement;
-        private List<UIElement> _options;
+        //private List<UIElement> _options;
         private By _locatorOptions = By.CssSelector("[data-testid='dropdown-menu']>li");
 
         public DropDownMenu(IWebDriver webDriver, By locator)
         {
             _uiElement = new UIElement(webDriver, locator);
-            _options = _uiElement.FindUIElements(_locatorOptions);
         }
+
+        public List<UIElement> Options
+        {
+            get
+            {
+                Click();
+                return _uiElement.FindUIElements(_locatorOptions);
+            }
+        }
+
+        public bool Enabled => _uiElement.Enabled;
 
         public bool Displayed => _uiElement.Displayed;
 
@@ -21,7 +31,7 @@ namespace Testiny.Elements
         public List<string> GetOptions()
         {
             var result = new List<string>();
-            foreach (UIElement element in _options)
+            foreach (UIElement element in Options)
             {
                 result.Add(element.Text);
             }
@@ -37,7 +47,7 @@ namespace Testiny.Elements
                 throw new ArgumentNullException("text", "text must not be null");
             }
 
-            foreach (UIElement option in _options)
+            foreach (UIElement option in Options)
             {
                 if (option.Text.Trim() == text)
                 {
@@ -54,9 +64,9 @@ namespace Testiny.Elements
 
         public void SelectByIndex(int index)
         {
-            if (index < _options.Count)
+            if (index < Options.Count)
             {
-                SelectOption(_options[index]);
+                SelectOption(Options[index]);
             }
             else
             {

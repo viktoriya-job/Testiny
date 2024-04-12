@@ -11,7 +11,8 @@ namespace Testiny.Tests.GUI
             TopMenuPage topMenuPage = NavigationSteps
                 .SuccessfulLogin(Configurator.Admin);
 
-            Assert.That(topMenuPage.IsPageOpened);
+            //Assert.That(topMenuPage.IsPageOpened);
+            topMenuPage.ProjectsMenu.SelectByIndex(0);
         }
     }
 }

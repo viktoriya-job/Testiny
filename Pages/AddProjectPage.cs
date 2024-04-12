@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Allure.NUnit.Attributes;
+using OpenQA.Selenium;
 using Testiny.Elements;
 
 namespace Testiny.Pages
@@ -24,30 +25,36 @@ namespace Testiny.Pages
         public Button AddButton => new(Driver, _addButtonBy);
         public Button CloseButton => new(Driver, _closeButtonBy);
 
+        [AllureStep("Input Project Name Value")]
         public AddProjectPage InputNameValue(string value)
         {
             NameInput.SendKeys(value);
             return this;
         }
 
+        [AllureStep("Input Project Key Value")]
         public AddProjectPage InputProjectKeyValue(string value)
         {
             ProjectKeyInput.SendKeys(value);
             return this;
         }
 
+        [AllureStep("Input Project Description Value")]
         public AddProjectPage InputDescriptionValue(string value)
         {
             DescriptionInput.SendKeys(value);
             return this;
         }
 
+        [AllureStep("Click Add Button")]
         public ProjectPage ClickAddButton()
         {
             AddButton.Click();
             return new ProjectPage(Driver);
         }
 
+
+        [AllureStep("Click Close Button")]
         public AddProjectPage ClickCloseButton()
         {
             CloseButton.Click();
