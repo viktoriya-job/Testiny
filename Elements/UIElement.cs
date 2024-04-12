@@ -58,6 +58,22 @@ public class UIElement : IWebElement
         return result;
     }
 
+    public ReadOnlyCollection<IWebElement> FindElementsFull(By by)
+    {
+        return _waitsHelper.WaitForAllVisibleElementsLocatedBy(by);
+    }
+
+    public List<UIElement> FindUIElementsFull(By by)
+    {
+        var result = new List<UIElement>();
+        foreach (var webElement in FindElementsFull(by))
+        {
+            result.Add(new UIElement(_webDriver, webElement));
+        }
+
+        return result;
+    }
+
     public void Clear()
     {
         _webElement.Clear();

@@ -1,25 +1,23 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
+using Testiny.Helpers.Configuration;
 
 namespace Testiny.Elements
 {
     public class DropDownMenu
     {
         private UIElement _uiElement;
-        //private List<UIElement> _options;
+        private List<UIElement> _options;
         private By _locatorOptions = By.CssSelector("[data-testid='dropdown-menu']>li");
+        private WebDriverWait _wait;
 
         public DropDownMenu(IWebDriver webDriver, By locator)
         {
             _uiElement = new UIElement(webDriver, locator);
-        }
-
-        public List<UIElement> Options
-        {
-            get
-            {
-                Click();
-                return _uiElement.FindUIElements(_locatorOptions);
-            }
+            _wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(Configurator.WaitsTimeout));
+            _uiElement.Click();
+            _options = _uiElement.FindUIElementsFull(_locatorOptions);
         }
 
         public bool Enabled => _uiElement.Enabled;
@@ -31,53 +29,23 @@ namespace Testiny.Elements
         public List<string> GetOptions()
         {
             var result = new List<string>();
-            foreach (UIElement element in Options)
+            foreach (UIElement element in _options)
             {
                 result.Add(element.Text);
             }
             return result;
         }
 
-        public void SelectByText(string text)
-        {
-            bool flag = false;
-
-            if (String.IsNullOrEmpty(text))
-            {
-                throw new ArgumentNullException("text", "text must not be null");
-            }
-
-            foreach (UIElement option in Options)
-            {
-                if (option.Text.Trim() == text)
-                {
-                    SelectOption(option);
-                    flag = true;
-                    return;
-                }
-            }
-            if (!flag)
-            {
-                throw new NoSuchElementException("Cannot locate element with text: " + text);
-            }
-        }
-
         public void SelectByIndex(int index)
         {
-            if (index < Options.Count)
+            if (index < _options.Count)
             {
-                SelectOption(Options[index]);
+                _options[index].Click();
             }
             else
             {
                 throw new AssertionException("Cannot locate option with index: " + index);
             }
-        }
-
-        private void SelectOption(UIElement option)
-        {
-            _uiElement.Click();
-            option.Click();
         }
     }
 }
