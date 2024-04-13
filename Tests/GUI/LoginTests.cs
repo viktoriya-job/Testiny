@@ -8,6 +8,7 @@ namespace Testiny.Tests.GUI
     public class LoginTests : BaseTest
     {
         [Test]
+        [Category("Positive")]
         public void SuccessLoginTest()
         {
 
@@ -18,6 +19,7 @@ namespace Testiny.Tests.GUI
         }
 
         [Test]
+        [Category("Negative")]
         public void UnsuccessLoginTest()
         {
             User user = new()

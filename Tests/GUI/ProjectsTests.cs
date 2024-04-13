@@ -23,11 +23,32 @@ namespace Testiny.Tests.GUI
             Description = "Test Description for Delete Test"
         };
 
-        //[TestCase("Pr")]
-        //[TestCase("Pr123")]
+        [TestCase("Pr")]
+        [TestCase("Pr123")]
+        [Category("Positive")]
+        public void EnterProjectKeyValueSuccessTest(string projectKey)
+        {
+            Project project = new()
+            {
+                ProjectName = $"Project {projectKey}",
+                ProjectKey = projectKey,
+                Description = $"Test Description for {projectKey}"
+            };
+
+            AddProjectPage addProjectPage = NavigationSteps
+                .SuccessfulLogin(Configurator.Admin)
+                .CreateProjectMenuSelect();
+
+            ProjectSteps
+                .InputProjectFields(project, addProjectPage);
+
+            Assert.That(addProjectPage.AddButton.Enabled);
+        }
+
         [TestCase("P")]
         [TestCase("Pr1234")]
-        public void EnterProjectKeyValueSuccessTest(string projectKey)
+        [Category("Negative")]
+        public void EnterProjectKeyValueUnsuccessTest(string projectKey)
         {
              Project project = new()
              {
@@ -43,10 +64,15 @@ namespace Testiny.Tests.GUI
             ProjectSteps
                 .InputProjectFields(project, addProjectPage);
 
-            Assert.That(addProjectPage.ErrorLabel.Displayed);
+            Assert.Multiple(() =>
+            {
+                Assert.That(!addProjectPage.AddButton.Enabled);
+                Assert.That(addProjectPage.ErrorLabel.Displayed);
+            });
         }
 
         [Test]
+        [Category("Positive")]
         public void AddProjectTest()
         {
             AddProjectPage addProjectPage = NavigationSteps
@@ -68,6 +94,7 @@ namespace Testiny.Tests.GUI
         }
 
         [Test]
+        [Category("Positive")]
         public void RemoveProjectTest()
         {
             AddProjectPage addProjectPage = NavigationSteps

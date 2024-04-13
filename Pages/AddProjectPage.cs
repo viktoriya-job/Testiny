@@ -11,7 +11,7 @@ namespace Testiny.Pages
         private static readonly By _nameInputBy = By.CssSelector("[data-testid='textbox-name']");
         private static readonly By _projectKeyInputBy = By.CssSelector("[data-testid='textbox-key']");
         private static readonly By _descriptionInputBy = By.CssSelector("[data-testid='textbox-description']");
-        private static readonly By _addButtonBy = By.CssSelector("[data-testid='button-save-entity'] div");
+        private static readonly By _addButtonBy = By.CssSelector("[data-testid='button-save-entity']");
         private static readonly By _closeButtonBy = By.CssSelector("[data-testid='button-close-entity'] div");
         private static readonly By _deleteButtonBy = By.CssSelector("[data-testid='section-project_edit'] button[data-testid='button-more_single:delete']");
         private static readonly By _errorLabelBy = By.XPath("//span[contains(text(),'Valid input is required')]");

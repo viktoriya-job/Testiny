@@ -3,6 +3,7 @@
     public class AccountTests : BaseTest
     {
         //[Test]
+        //[Category("Positive")]
         //public void AddAvatarTest()
         //{
 
