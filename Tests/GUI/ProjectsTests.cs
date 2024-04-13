@@ -6,19 +6,27 @@ namespace Testiny.Tests.GUI
 {
     public class ProjectsTests : BaseTest
     {
-        protected Project project = new()
+        private Project projectAdd = new()
 
         {
-            ProjectName = "Test Project3",
-            ProjectKey = "Proj3",
-            Description = "Test Description"
+            ProjectName = "Test Project 1 for Add Test",
+            ProjectKey = "PrjA1",
+            Description = "Test Description for Add Test"
         };
 
-        [TestCase]
-        public void EnterProjectKeyValueSuccessTest()
-        {
+        private Project projectDel = new()
 
-        }
+        {
+            ProjectName = "Test Project 1 for Delete Test",
+            ProjectKey = "PrjD1",
+            Description = "Test Description for Delete Test"
+        };
+
+        //[TestCase]
+        //public void EnterProjectKeyValueSuccessTest()
+        //{
+
+        //}
 
         [Test]
         public void AddProjectTest()
@@ -28,30 +36,34 @@ namespace Testiny.Tests.GUI
                 .CreateProjectMenuSelect();
 
             ProjectPage projectPage = ProjectSteps
-                .AddProjectSuccessfull(project, addProjectPage);
-
+                .AddProjectSuccessfull(projectAdd, addProjectPage);
             Thread.Sleep(1000);
 
             Assert.Multiple(() =>
             {
-                Assert.That(projectPage.ProjectKeyText.Text.Trim(), Is.EqualTo(project.ProjectKey.ToUpper()));
+                Assert.That(projectPage.ProjectKeyText.Text.Trim(), Is.EqualTo(projectAdd.ProjectKey.ToUpper()));
 
                 AllProjectsPage allProjectsPage = NavigationSteps.NavigateToAllProjectsPage();
 
-                Assert.That(allProjectsPage.ProjectKeysText.Contains(project.ProjectKey.ToUpper()));
+                Assert.That(allProjectsPage.ProjectKeysText.Contains(projectAdd.ProjectKey.ToUpper()));
             });
         }
 
         [Test]
         public void RemoveProjectTest()
         {
-            NavigationSteps
-                .SuccessfulLogin(Configurator.Admin);
+            AddProjectPage addProjectPage = NavigationSteps
+                .SuccessfulLogin(Configurator.Admin)
+                .CreateProjectMenuSelect();
+
+            ProjectPage projectPage = ProjectSteps
+                .AddProjectSuccessfull(projectDel, addProjectPage);
+            Thread.Sleep(1000);
 
             AllProjectsPage allProjectsPage = NavigationSteps
                 .NavigateToAllProjectsPage();
 
-            var index = allProjectsPage.ProjectKeys.FindIndex(projectKey => projectKey.Text.Trim().ToUpper() == project.ProjectKey.ToUpper());
+            var index = allProjectsPage.ProjectKeys.FindIndex(projectKey => projectKey.Text.Trim().ToUpper() == projectDel.ProjectKey.ToUpper());
 
             AllProjectsPage allProjectsPageNew = allProjectsPage
                 .SelectRecordByProjectKeyElement(allProjectsPage.ProjectKeys[index])
@@ -62,7 +74,7 @@ namespace Testiny.Tests.GUI
                 .NavigateToDashboardPage();
 
             TopMenuPage topMenuPage = new TopMenuPage(Driver);
-            Assert.That(!topMenuPage.ProjectsMenu.GetOptions().Contains(project.ProjectName));
+            Assert.That(!topMenuPage.ProjectsMenu.GetOptions().Contains(projectDel.ProjectName));
         }
     }
 }

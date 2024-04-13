@@ -21,7 +21,10 @@ namespace Testiny.Steps
             return (T)Activator.CreateInstance(typeof(T), Driver, false);
         }
 
+        [AllureStep("Navigate To All Projects Page")]
         public AllProjectsPage NavigateToAllProjectsPage() => new AllProjectsPage(Driver, true);
+
+        [AllureStep("Navigate To Dashboard Page")]
         public DashboardPage NavigateToDashboardPage() => new DashboardPage(Driver, true);
     }
 }

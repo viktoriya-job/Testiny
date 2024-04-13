@@ -2,10 +2,10 @@
 {
     public class AccountTests : BaseTest
     {
-        [Test]
-        public void AddAvatarTest()
-        {
+        //[Test]
+        //public void AddAvatarTest()
+        //{
 
-        }
+        //}
     }
 }

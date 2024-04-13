@@ -55,7 +55,6 @@ namespace Testiny.Pages
             return new ProjectPage(Driver);
         }
 
-
         [AllureStep("Click Close Button")]
         public AddProjectPage ClickCloseButton()
         {
