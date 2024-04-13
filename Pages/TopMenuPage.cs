@@ -12,8 +12,8 @@ namespace Testiny.Pages
         public TopMenuPage(IWebDriver driver) : base(driver) { }
         public TopMenuPage(IWebDriver driver, bool openPageByUrl) : base(driver, openPageByUrl) { }
 
-        public DropDownMenu ProjectsMenu => new(Driver, _projectsMenuBy);
-        public DropDownMenu AccountMenu => new(Driver, _accountMenuBy);
+        public DropDownMenu ProjectsMenu => new(Driver, _projectsMenuBy, false);
+        public DropDownMenu AccountMenu => new(Driver, _accountMenuBy, true);
 
         protected override string GetEndpoint()
         {

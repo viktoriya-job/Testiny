@@ -13,13 +13,12 @@ namespace Testiny.Tests.GUI
             TopMenuPage topMenuPage = NavigationSteps
                 .SuccessfulLogin(Configurator.Admin);
 
-            //Assert.That(topMenuPage.IsPageOpened);
-            topMenuPage.ProjectsMenu.SelectByIndex(2);
-            Thread.Sleep(1000);
+            Assert.That(topMenuPage.IsPageOpened);
+            //topMenuPage.ProjectsMenu.SelectByIndex(2);
+            //Thread.Sleep(1000);
 
-            topMenuPage.AccountMenu.SelectByIndex(0);
-            Thread.Sleep(3000);
-
+            //topMenuPage.AccountMenu.SelectByIndex(0);
+            //Thread.Sleep(3000);
         }
     }
 }

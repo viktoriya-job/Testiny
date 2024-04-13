@@ -10,14 +10,20 @@ namespace Testiny.Elements
         private UIElement _uiElement;
         private List<UIElement> _options;
         private By _locatorOptions = By.CssSelector("[data-testid='dropdown-menu']>li");
-        private WebDriverWait _wait;
+        private By _locatorAOptions = By.CssSelector("[data-testid='dropdown-menu']>a>li");
 
-        public DropDownMenu(IWebDriver webDriver, By locator)
+        public DropDownMenu(IWebDriver webDriver, By locator, bool separatedOptions)
         {
             _uiElement = new UIElement(webDriver, locator);
-            _wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(Configurator.WaitsTimeout));
             _uiElement.Click();
-            _options = _uiElement.FindUIElementsFull(_locatorOptions);
+            if (separatedOptions)
+            {
+                _options = _uiElement.FindUIElementsFull(_locatorAOptions);
+            }
+            else
+            {
+                _options = _uiElement.FindUIElementsFull(_locatorOptions);
+            }  
         }
 
         public bool Enabled => _uiElement.Enabled;
