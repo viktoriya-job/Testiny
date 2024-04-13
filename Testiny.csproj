@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <None Remove="appsettings.json" />
+    <None Remove="Resources\testiny_testcase_import_sample.csv" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,6 +44,12 @@
 
   <ItemGroup>
     <Folder Include="Clients\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\testiny_testcase_import_sample.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

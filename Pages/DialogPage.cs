@@ -20,21 +20,21 @@ namespace Testiny.Pages
 
 
         [AllureStep("Click Confirm Button")]
-        public T ClickConfirmButton<T>()
+        public T ConfirmButtonClick<T>()
         {
             ConfirmButton.Click();
             return (T)Activator.CreateInstance(typeof(T), Driver, false);
         }
 
         [AllureStep("Click Discard Button")]
-        public T ClickDiscardButton<T>()
+        public T DiscardButtonClick<T>()
         {
             DiscardButton.Click();
             return (T)Activator.CreateInstance(typeof(T), Driver, false);
         }
 
         [AllureStep("Click Cancel Button")]
-        public T ClickCancelButton<T>()
+        public T CancelButtonClick<T>()
         {
             CancelButton.Click();
             return (T)Activator.CreateInstance(typeof(T), Driver, false);

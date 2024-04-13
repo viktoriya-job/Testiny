@@ -113,7 +113,7 @@ namespace Testiny.Tests.GUI
             AllProjectsPage allProjectsPageNew = allProjectsPage
                 .SelectRecordByProjectKeyElement(allProjectsPage.ProjectKeys[index])
                 .ClickDeleteButton()
-                .ClickConfirmButton<AllProjectsPage>();
+                .ConfirmButtonClick<AllProjectsPage>();
 
             NavigationSteps
                 .NavigateToDashboardPage();
