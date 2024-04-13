@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using Testiny.Helpers.Configuration;
 using Testiny.Models;
 using Testiny.Pages;
 
@@ -6,10 +7,8 @@ namespace Testiny.Steps
 {
     public class ProjectsSteps(IWebDriver driver) : BaseSteps(driver)
     {
-        public ProjectPage AddProjectSuccessfull(Project project)
+        public ProjectPage AddProjectSuccessfull(Project project, AddProjectPage addProjectPage)
         {
-            AddProjectPage addProjectPage = new AddProjectPage(Driver);
-
             return addProjectPage
                     .InputNameValue(project.ProjectName)
                     .InputProjectKeyValue(project.ProjectKey)

@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Allure.NUnit.Attributes;
+using OpenQA.Selenium;
 using Testiny.Models;
 using Testiny.Pages;
 
@@ -18,6 +19,11 @@ namespace Testiny.Steps
                 .LoginButton.Click();
 
             return (T)Activator.CreateInstance(typeof(T), Driver, false);
+        }
+
+        public AllProjectsPage NavigateToAllProjectsPage()
+        {
+            return new AllProjectsPage(Driver, true);
         }
     }
 }

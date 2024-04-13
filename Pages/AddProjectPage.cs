@@ -8,9 +8,9 @@ namespace Testiny.Pages
     {
         private static readonly By _titleIconBy = By.Id("icon-project-add-20");
         private static readonly By _titleLabelBy = By.XPath("//h4[contains(text(),'Create a new project')]");
-        private static readonly By _nameInputBy = By.Id(":rl:");
-        private static readonly By _projectKeyInputBy = By.Id(":rn:");
-        private static readonly By _descriptionInputBy = By.Id(":rp:");
+        private static readonly By _nameInputBy = By.CssSelector("[data-testid='textbox-name']");
+        private static readonly By _projectKeyInputBy = By.CssSelector("[data-testid='textbox-key']");
+        private static readonly By _descriptionInputBy = By.CssSelector("[data-testid='textbox-description']");
         private static readonly By _addButtonBy = By.CssSelector("[data-testid='button-save-entity'] div");
         private static readonly By _closeButtonBy = By.CssSelector("[data-testid='button-close-entity'] div");
 

@@ -1,4 +1,5 @@
 ﻿using Testiny.Helpers.Configuration;
+using Testiny.Models;
 using Testiny.Pages;
 
 namespace Testiny.Tests.GUI
@@ -8,14 +9,31 @@ namespace Testiny.Tests.GUI
         [Test]
         public void AddProjectTest()
         {
-            TopMenuPage topMenuPage = NavigationSteps
-                .SuccessfulLogin(Configurator.Admin);
+            Project project = new()
 
-            //List<string> list = topMenuPage.ProjectsMenu.GetOptions();
-            //Console.WriteLine(list[2]);
+            {
+                ProjectName = "Test Project1",
+                ProjectKey = "Proj1",
+                Description = "Test Description"
+            };
 
-            topMenuPage.ProjectsMenu.SelectByText("Create a new project");
-            Thread.Sleep(3000);
+            AddProjectPage addProjectPage = NavigationSteps
+                .SuccessfulLogin(Configurator.Admin)
+                .CreateProjectMenuSelect();
+
+            ProjectPage projectPage = ProjectSteps
+                .AddProjectSuccessfull(project, addProjectPage);
+
+            Thread.Sleep(1000);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(projectPage.ProjectKeyText.Text.Trim(), Is.EqualTo(project.ProjectKey.ToUpper()));
+
+                AllProjectsPage allProjectsPage = NavigationSteps.NavigateToAllProjectsPage();
+
+                Assert.That(allProjectsPage.ProjectKeysText.Contains(project.ProjectKey.ToUpper()));
+            });
         }
     }
 }

@@ -84,5 +84,17 @@ namespace Testiny.Helpers
         {
             return new UIElement(driver, _wait.Until(_ => webElement.FindElement(by)));
         }
+
+        public List<UIElement> WaitForAllVisibleUiElementsLocatedBy(By locator)
+        {
+            List<UIElement> result = new List<UIElement>();
+
+            foreach(IWebElement element in WaitForPresenceOfAllElementsLocatedBy(locator))
+            {
+                result.Add(new UIElement(driver, element));
+            }
+
+            return result;
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Allure.NUnit.Attributes;
+using OpenQA.Selenium;
 using Testiny.Elements;
 
 namespace Testiny.Pages
@@ -14,6 +15,13 @@ namespace Testiny.Pages
 
         public DropDownMenu ProjectsMenu => new(Driver, _projectsMenuBy, false);
         public DropDownMenu AccountMenu => new(Driver, _accountMenuBy, true);
+
+        [AllureStep("Select the 'Create a new project' menu")]
+        public AddProjectPage CreateProjectMenuSelect()
+        {
+            ProjectsMenu.SelectByText("Create a new project");
+            return new AddProjectPage(Driver);
+        }
 
         protected override string GetEndpoint()
         {
