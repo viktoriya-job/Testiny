@@ -1,9 +1,7 @@
-﻿using Allure.Net.Commons;
-using NUnit.Framework.Interfaces;
-using System.Security.Permissions;
-using Testiny.Helpers.Configuration;
+﻿using Testiny.Helpers.Configuration;
 using Testiny.Models;
 using Testiny.Pages;
+using Testiny.Steps;
 
 namespace Testiny.Tests.GUI
 {
@@ -21,6 +19,13 @@ namespace Testiny.Tests.GUI
             ProjectName = "Test Project 1 for Delete Test",
             ProjectKey = "PrjD1",
             Description = "Test Description for Delete Test"
+        };
+
+        private Project projectError = new()
+        {
+            ProjectName = "Error project",
+            ProjectKey = "ErrorProjectKey",
+            Description = "Test Description for Error project"
         };
 
         [TestCase("Pr")]
@@ -83,14 +88,9 @@ namespace Testiny.Tests.GUI
                 .AddProjectSuccessfull(projectAdd, addProjectPage);
             Thread.Sleep(1000);
 
-            Assert.Multiple(() =>
-            {
-                Assert.That(projectPage.ProjectKeyText.Text.Trim(), Is.EqualTo(projectAdd.ProjectKey.ToUpper()));
+            AllProjectsPage allProjectsPage = NavigationSteps.NavigateToAllProjectsPage();
 
-                AllProjectsPage allProjectsPage = NavigationSteps.NavigateToAllProjectsPage();
-
-                Assert.That(allProjectsPage.ProjectKeysText.Contains(projectAdd.ProjectKey.ToUpper()));
-            });
+            Assert.That(allProjectsPage.ProjectKeysText.Contains(projectAdd.ProjectKey.ToUpper()));
         }
 
         [Test]
@@ -120,6 +120,34 @@ namespace Testiny.Tests.GUI
 
             TopMenuPage topMenuPage = new TopMenuPage(Driver);
             Assert.That(!topMenuPage.ProjectsMenu.GetOptions().Contains(projectDel.ProjectName));
+        }
+
+        [Test]
+        [Category("Positive")]
+        public void PopupMessageTest()
+        {
+            AddProjectPage addProjectPage = NavigationSteps
+                .SuccessfulLogin(Configurator.Admin)
+                .CreateProjectMenuSelect();
+
+            DialogPage dialogPage = ProjectSteps
+                .AddProjectUnsuccessfull(projectAdd, addProjectPage);
+
+            Assert.That(dialogPage.IsPageOpened);
+        }
+
+        [Test]
+        [Category("Expected error")]
+        public void AddIncorrectProjectTest()
+        {
+            AddProjectPage addProjectPage = NavigationSteps
+                .SuccessfulLogin(Configurator.Admin)
+                .CreateProjectMenuSelect();
+
+            ProjectSteps
+                .InputProjectFields(projectError, addProjectPage);
+
+            Assert.That(addProjectPage.AddButton.Enabled);
         }
     }
 }

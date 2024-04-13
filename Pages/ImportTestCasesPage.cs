@@ -1,6 +1,5 @@
 ﻿using Allure.NUnit.Attributes;
 using OpenQA.Selenium;
-using System.IO;
 using Testiny.Elements;
 
 namespace Testiny.Pages

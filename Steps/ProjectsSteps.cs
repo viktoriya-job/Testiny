@@ -1,5 +1,4 @@
 ﻿using OpenQA.Selenium;
-using Testiny.Helpers.Configuration;
 using Testiny.Models;
 using Testiny.Pages;
 
@@ -16,15 +15,15 @@ namespace Testiny.Steps
                     .ClickAddButton();
         }
 
-        public AddProjectPage AddProjectUnsuccessfull(Project project)
+        public DialogPage AddProjectUnsuccessfull(Project project, AddProjectPage addProjectPage)
         {
-            AddProjectPage addProjectPage = new AddProjectPage(Driver);
-
-            return addProjectPage
+            addProjectPage
                     .InputNameValue(project.ProjectName)
                     .InputProjectKeyValue(project.ProjectKey)
                     .InputDescriptionValue(project.Description)
                     .ClickCloseButton();
+
+            return new DialogPage(Driver);
         }
 
         public AddProjectPage InputProjectFields(Project project, AddProjectPage addProjectPage)

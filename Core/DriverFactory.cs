@@ -15,8 +15,8 @@ namespace Testiny.Core
             chromeOptions.AddArguments("--incognito");
             chromeOptions.AddArguments("--disable-gpu");
             chromeOptions.AddArguments("--disable-extensions");
-            //chromeOptions.AddArguments("--headless");
-            //chromeOptions.AddArguments("--remote-debugging-pipe");
+            chromeOptions.AddArguments("--headless");
+            chromeOptions.AddArguments("--remote-debugging-pipe");
 
             chromeOptions.SetLoggingPreference(LogType.Browser, LogLevel.All);
             chromeOptions.SetLoggingPreference(LogType.Driver, LogLevel.All);

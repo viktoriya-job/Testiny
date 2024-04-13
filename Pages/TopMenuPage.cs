@@ -9,6 +9,7 @@ namespace Testiny.Pages
         private static string _endPoint = "";
         private static readonly By _projectsMenuBy = By.CssSelector("[data-testid='button-projects']>div");
         private static readonly By _accountMenuBy = By.CssSelector("[data-testid='button-account']>div");
+        private static readonly By _feedbackButtonBy = By.CssSelector("[data-testid='button-feedback']>div");
 
         public TopMenuPage(IWebDriver driver) : base(driver) { }
         public TopMenuPage(IWebDriver driver, bool openPageByUrl) : base(driver, openPageByUrl) { }

@@ -6,7 +6,7 @@ namespace Testiny.Pages
 {
     public class DialogPage : BasePage
     {
-        private static readonly By _titleLabelBy = By.CssSelector("[data-testid='text-title']>p");
+        private static readonly By _titleLabelBy = By.CssSelector("[data-testid='text-title']");
         private static readonly By _confirmButtonBy = By.CssSelector("[data-testid='button-affirm']");
         private static readonly By _discardButtonBy = By.CssSelector("[data-testid='button-negate']");
         private static readonly By _cancelButtonBy = By.CssSelector("[data-testid='button-cancel']");

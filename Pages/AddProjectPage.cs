@@ -17,7 +17,6 @@ namespace Testiny.Pages
         private static readonly By _errorLabelBy = By.XPath("//span[contains(text(),'Valid input is required')]");
 
         public AddProjectPage(IWebDriver driver) : base(driver) { }
-        //public AddProjectPage(IWebDriver driver, bool openByUrl) : base(driver, openByUrl) { }
 
         public UIElement TitleIcon => new(Driver, _titleIconBy);
         public UIElement TitleLabel => new(Driver, _titleLabelBy);
