@@ -1,4 +1,7 @@
-﻿using Testiny.Helpers.Configuration;
+﻿using Allure.Net.Commons;
+using NUnit.Framework.Interfaces;
+using System.Security.Permissions;
+using Testiny.Helpers.Configuration;
 using Testiny.Models;
 using Testiny.Pages;
 
@@ -7,7 +10,6 @@ namespace Testiny.Tests.GUI
     public class ProjectsTests : BaseTest
     {
         private Project projectAdd = new()
-
         {
             ProjectName = "Test Project 1 for Add Test",
             ProjectKey = "PrjA1",
@@ -15,18 +17,34 @@ namespace Testiny.Tests.GUI
         };
 
         private Project projectDel = new()
-
         {
             ProjectName = "Test Project 1 for Delete Test",
             ProjectKey = "PrjD1",
             Description = "Test Description for Delete Test"
         };
 
-        //[TestCase]
-        //public void EnterProjectKeyValueSuccessTest()
-        //{
+        //[TestCase("Pr")]
+        //[TestCase("Pr123")]
+        [TestCase("P")]
+        [TestCase("Pr1234")]
+        public void EnterProjectKeyValueSuccessTest(string projectKey)
+        {
+             Project project = new()
+             {
+                ProjectName = $"Project {projectKey}",
+                ProjectKey = projectKey,
+                Description = $"Test Description for {projectKey}"
+             };
 
-        //}
+            AddProjectPage addProjectPage = NavigationSteps
+                .SuccessfulLogin(Configurator.Admin)
+                .CreateProjectMenuSelect();
+
+            ProjectSteps
+                .InputProjectFields(project, addProjectPage);
+
+            Assert.That(addProjectPage.ErrorLabel.Displayed);
+        }
 
         [Test]
         public void AddProjectTest()

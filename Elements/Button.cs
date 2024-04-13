@@ -28,5 +28,6 @@ namespace Testiny.Elements
 
         public string Text => _uiElement.Text;
         public bool Displayed => _uiElement.Displayed;
+        public bool Enabled => _uiElement.Enabled;
     }
 }

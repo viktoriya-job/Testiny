@@ -14,6 +14,7 @@ namespace Testiny.Pages
         private static readonly By _addButtonBy = By.CssSelector("[data-testid='button-save-entity'] div");
         private static readonly By _closeButtonBy = By.CssSelector("[data-testid='button-close-entity'] div");
         private static readonly By _deleteButtonBy = By.CssSelector("[data-testid='section-project_edit'] button[data-testid='button-more_single:delete']");
+        private static readonly By _errorLabelBy = By.XPath("//span[contains(text(),'Valid input is required')]");
 
         public AddProjectPage(IWebDriver driver) : base(driver) { }
         //public AddProjectPage(IWebDriver driver, bool openByUrl) : base(driver, openByUrl) { }
@@ -26,6 +27,7 @@ namespace Testiny.Pages
         public Button AddButton => new(Driver, _addButtonBy);
         public Button CloseButton => new(Driver, _closeButtonBy);
         public Button DeleteButton => new(Driver, _deleteButtonBy);
+        public UIElement ErrorLabel => new(Driver, _errorLabelBy);
 
         [AllureStep("Input Project Name Value")]
         public AddProjectPage InputNameValue(string value)

@@ -26,5 +26,13 @@ namespace Testiny.Steps
                     .InputDescriptionValue(project.Description)
                     .ClickCloseButton();
         }
+
+        public AddProjectPage InputProjectFields(Project project, AddProjectPage addProjectPage)
+        {
+            return addProjectPage
+                    .InputNameValue(project.ProjectName)
+                    .InputProjectKeyValue(project.ProjectKey)
+                    .InputDescriptionValue(project.Description);
+        }
     }
 }
