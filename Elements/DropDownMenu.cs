@@ -9,8 +9,11 @@ namespace Testiny.Elements
     {
         private UIElement _uiElement;
         private List<UIElement> _options;
+        private List<UIElement> _optionsValues;
         private By _locatorOptions = By.CssSelector("[data-testid='dropdown-menu']>li");
         private By _locatorAOptions = By.CssSelector("[data-testid='dropdown-menu']>a>li");
+        private By _locatorOptionsText = By.CssSelector("[data-testid='dropdown-menu']>li>div.menu-label");
+        private By _locatorAOptionsText = By.CssSelector("[data-testid='dropdown-menu']>a>li>div.menu-label");
 
         public DropDownMenu(IWebDriver webDriver, By locator, bool separatedOptions)
         {
@@ -19,10 +22,12 @@ namespace Testiny.Elements
             if (separatedOptions)
             {
                 _options = _uiElement.FindUIElementsFull(_locatorAOptions);
+                _optionsValues = _uiElement.FindUIElementsFull(_locatorAOptionsText);
             }
             else
             {
                 _options = _uiElement.FindUIElementsFull(_locatorOptions);
+                _optionsValues = _uiElement.FindUIElementsFull(_locatorOptionsText);
             }  
         }
 
@@ -35,10 +40,12 @@ namespace Testiny.Elements
         public List<string> GetOptions()
         {
             var result = new List<string>();
-            foreach (UIElement element in _options)
+
+            foreach (UIElement element in _optionsValues)
             {
                 result.Add(element.Text);
             }
+
             return result;
         }
 
@@ -51,6 +58,30 @@ namespace Testiny.Elements
             else
             {
                 throw new AssertionException("Cannot locate option with index: " + index);
+            }
+        }
+
+        public void SelectByText(string text)
+        {
+            bool flag = false;
+
+            if (String.IsNullOrEmpty(text))
+            {
+                throw new ArgumentNullException("text", "text must not be null");
+            }
+
+            foreach (UIElement option in _optionsValues)
+            {
+                if (option.Text.Trim() == text)
+                {
+                    option.Click();
+                    flag = true;
+                    return;
+                }
+            }
+            if (!flag)
+            {
+                throw new NoSuchElementException("Cannot locate element with text: " + text);
             }
         }
     }
