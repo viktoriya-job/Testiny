@@ -6,16 +6,14 @@ namespace Testiny.Pages
     public class TopMenuPage : BasePage
     {
         private static string _endPoint = "";
-        private static readonly By _titleIconBy = By.Id("icon-logo-mainbar");
         private static readonly By _projectsMenuBy = By.CssSelector("[data-testid='button-projects']>div");
         private static readonly By _accountMenuBy = By.CssSelector("[data-testid='button-account']>div");
 
         public TopMenuPage(IWebDriver driver) : base(driver) { }
         public TopMenuPage(IWebDriver driver, bool openPageByUrl) : base(driver, openPageByUrl) { }
 
-        public UIElement TitleIcon => new(Driver, _titleIconBy);
-        public DropDownMenu ProjectsMenu => new(Driver, _projectsMenuBy);
-        public DropDownMenu AccountMenu => new(Driver, _accountMenuBy);
+        public DropDownMenu ProjectsMenu => new(Driver, _projectsMenuBy, false);
+        public DropDownMenu AccountMenu => new(Driver, _accountMenuBy, true);
 
         protected override string GetEndpoint()
         {

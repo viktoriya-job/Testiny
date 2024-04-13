@@ -31,7 +31,6 @@ public class BaseTest
     public void FactoryDriverTest()
     {
         Driver = new Browser().Driver;
-        WaitsHelper = new WaitsHelper(Driver, TimeSpan.FromSeconds(Configurator.WaitsTimeout));
 
         NavigationSteps = new NavigationSteps(Driver);
         ProjectSteps = new ProjectsSteps(Driver);
