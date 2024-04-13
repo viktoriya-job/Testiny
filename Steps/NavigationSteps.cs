@@ -21,9 +21,7 @@ namespace Testiny.Steps
             return (T)Activator.CreateInstance(typeof(T), Driver, false);
         }
 
-        public AllProjectsPage NavigateToAllProjectsPage()
-        {
-            return new AllProjectsPage(Driver, true);
-        }
+        public AllProjectsPage NavigateToAllProjectsPage() => new AllProjectsPage(Driver, true);
+        public DashboardPage NavigateToDashboardPage() => new DashboardPage(Driver, true);
     }
 }

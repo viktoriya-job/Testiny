@@ -13,6 +13,7 @@ namespace Testiny.Pages
         private static readonly By _descriptionInputBy = By.CssSelector("[data-testid='textbox-description']");
         private static readonly By _addButtonBy = By.CssSelector("[data-testid='button-save-entity'] div");
         private static readonly By _closeButtonBy = By.CssSelector("[data-testid='button-close-entity'] div");
+        private static readonly By _deleteButtonBy = By.CssSelector("[data-testid='section-project_edit'] button[data-testid='button-more_single:delete']");
 
         public AddProjectPage(IWebDriver driver) : base(driver) { }
         //public AddProjectPage(IWebDriver driver, bool openByUrl) : base(driver, openByUrl) { }
@@ -24,6 +25,7 @@ namespace Testiny.Pages
         public UIElement DescriptionInput => new(Driver, _descriptionInputBy);
         public Button AddButton => new(Driver, _addButtonBy);
         public Button CloseButton => new(Driver, _closeButtonBy);
+        public Button DeleteButton => new(Driver, _deleteButtonBy);
 
         [AllureStep("Input Project Name Value")]
         public AddProjectPage InputNameValue(string value)
@@ -59,6 +61,13 @@ namespace Testiny.Pages
         {
             CloseButton.Click();
             return this;
+        }
+
+        [AllureStep("Click Delete Button")]
+        public DialogPage ClickDeleteButton()
+        {
+            DeleteButton.Click();
+            return new DialogPage(Driver);
         }
 
         protected override string GetEndpoint()

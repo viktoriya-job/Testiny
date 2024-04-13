@@ -9,8 +9,8 @@ namespace Testiny.Tests.GUI
         protected Project project = new()
 
         {
-            ProjectName = "Test Project8",
-            ProjectKey = "Proj8",
+            ProjectName = "Test Project3",
+            ProjectKey = "Proj3",
             Description = "Test Description"
         };
 
@@ -52,9 +52,17 @@ namespace Testiny.Tests.GUI
                 .NavigateToAllProjectsPage();
 
             var index = allProjectsPage.ProjectKeys.FindIndex(projectKey => projectKey.Text.Trim().ToUpper() == project.ProjectKey.ToUpper());
-            allProjectsPage.ProjectKeys[index].Click();
 
-            Thread.Sleep(3000);
+            AllProjectsPage allProjectsPageNew = allProjectsPage
+                .SelectRecordByProjectKeyElement(allProjectsPage.ProjectKeys[index])
+                .ClickDeleteButton()
+                .ClickConfirmButton<AllProjectsPage>();
+
+            NavigationSteps
+                .NavigateToDashboardPage();
+
+            TopMenuPage topMenuPage = new TopMenuPage(Driver);
+            Assert.That(!topMenuPage.ProjectsMenu.GetOptions().Contains(project.ProjectName));
         }
     }
 }

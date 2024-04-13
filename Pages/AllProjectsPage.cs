@@ -29,6 +29,13 @@ namespace Testiny.Pages
             } 
         }
 
+        [AllureStep("Select record in All Projects Page")]
+        public AddProjectPage SelectRecordByProjectKeyElement(UIElement element)
+        {
+            element.Click();
+            return new AddProjectPage(Driver);
+        }
+
         protected override string GetEndpoint() => _endPoint;
 
         public override bool IsPageOpened()
