@@ -1,6 +1,8 @@
 trigger:
 - develop
 
+continueOnError: true
+
 pool:
   vmImage: 'windows-latest'
 
@@ -27,8 +29,7 @@ steps:
     allureVersion: 2.27.0
     testResultsDir: .\bin\Debug\net8.0\allure-report\
 
-- task: PublishBuildArtifacts@1
+- task: PublishPipelineArtifact@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+    targetPath: '$(Build.SourcesDirectory)\bin\Debug\net8.0\allure-report'
+    publishLocation: 'pipeline'

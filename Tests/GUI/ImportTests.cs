@@ -10,7 +10,7 @@ namespace Testiny.Tests.GUI
     {
         [Test]
         [Category("Positive")]
-        public void ImportCSVTestCaseTest()
+        public void ImportCSVFileTest()
         {
             string fileName = "testiny_testcase_import_sample.csv";
 
