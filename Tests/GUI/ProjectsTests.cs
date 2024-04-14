@@ -35,6 +35,7 @@ namespace Testiny.Tests.GUI
             Description = "Test Description for Correct project"
         };
 
+        [TestCase("")]
         [TestCase("Pr")]
         [TestCase("Pr123")]
         [Category("Positive")]
