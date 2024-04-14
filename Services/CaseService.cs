@@ -21,6 +21,14 @@ namespace Testiny.Services
             return _client.ExecuteAsync<Case>(request);
         }
 
+        public Task<Case> AddCase(Case tCase)
+        {
+            var request = new RestRequest("api/v1/testcase", Method.Post)
+                .AddJsonBody(tCase);
+
+            return _client.ExecuteAsync<Case>(request);
+        }
+
         public void Dispose()
         {
             _client?.Dispose();
