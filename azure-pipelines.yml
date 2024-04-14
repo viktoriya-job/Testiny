@@ -25,4 +25,10 @@ steps:
   displayName: Publish Report
   inputs:
     allureVersion: 2.27.0
-    testResultsDir: allure-results
+    testResultsDir: .\bin\Debug\net8.0\allure-report\
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
