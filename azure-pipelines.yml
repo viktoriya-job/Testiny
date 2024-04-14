@@ -20,3 +20,9 @@ steps:
   inputs:
     command: 'test'
     projects: 'Testiny.csproj'
+
+- task: PublishAllureReport@1
+  displayName: Publish Report
+  inputs:
+    allureVersion: 2.27.0
+    testResultsDir: allure-results
