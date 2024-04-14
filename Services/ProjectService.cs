@@ -1,4 +1,5 @@
-﻿using RestSharp;
+﻿using Allure.NUnit.Attributes;
+using RestSharp;
 using System.Net;
 using Testiny.Clients;
 using Testiny.Models;

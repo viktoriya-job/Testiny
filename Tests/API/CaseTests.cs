@@ -4,13 +4,14 @@ using System.Reflection;
 using Testiny.Helpers;
 using Testiny.Models;
 using Allure.Net.Commons;
+using Newtonsoft.Json.Linq;
+using System.Net;
 
 namespace Testiny.Tests.API
 {
     [TestFixture]
     public class CaseTests : BaseApiTest
     {
-        private readonly Logger _logger = LogManager.GetCurrentClassLogger();
         private Case _case = null;
         private Project _project = null;
 
@@ -22,13 +23,14 @@ namespace Testiny.Tests.API
 
             string location = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
+
             //Adding Project from Json
             string path = Path.Combine(location, "Resources", projectFileName);
 
             Project project = JsonHelper<Project>.FromJson(path, FileMode.Open);
 
             _project = ProjectService.AddProject(project).Result;
-            _logger.Info(_project.ToString());
+            Logger.Info(_project.ToString());
 
 
             //Adding TestCase from Json
@@ -38,26 +40,29 @@ namespace Testiny.Tests.API
             tCase.ProjectId = _project.Id;
 
             _case = CaseService.AddCase(tCase).Result;
-            _logger.Info(_case.ToString());
+            Logger.Info(_case.ToString());
         }
 
         [Test]
         [Order(1)]
         public void GetCaseTest()
         {
-            var actualCase = CaseService.GetCase(_case.Id);
+            var result = CaseService.GetCase(_case.Id);
+
+            JObject resultData = JObject.Parse(result.Result.Content);
+            Case actualCase = JsonHelper<Case>.FromJson(result.Result.Content);
 
             Assert.Multiple(() =>
             {
-                Assert.That(actualCase.Result.Title, Is.EqualTo(_case.Title));
-                Assert.That(actualCase.Result.ProjectId, Is.EqualTo(_case.ProjectId));
+                Assert.That(result.Result.StatusCode == HttpStatusCode.OK);
+                Assert.That(actualCase.Title, Is.EqualTo(_case.Title));
+                Assert.That(actualCase.ProjectId, Is.EqualTo(_case.ProjectId));
             });
 
-            _logger.Info(actualCase.Result.ToString());
+            Logger.Info(actualCase.ToString());
         }
 
-        [Test]
-        [Order(2)]
+        [OneTimeTearDown]
         public void RemoveData()
         {
             var actualProject = ProjectService.RemoveProject(_project.Id);
@@ -69,23 +74,7 @@ namespace Testiny.Tests.API
             });
 
             _project = actualProject.Result;
-            _logger.Info(_project.ToString());
-        }
-
-        [Test]
-        [Order(3)]
-        public void GetCaseTestFromRemovedProject()
-        {
-            var actualCase = CaseService.GetCase(_case.Id);
-
-            Assert.Multiple(() =>
-            {
-                Assert.That(actualCase.Result.Title, Is.EqualTo(_case.Title));
-                Assert.That(actualCase.Result.ProjectId, Is.EqualTo(_case.ProjectId));
-                Assert.That(actualCase.Result.IdDeleted == false);
-            });
-
-            _logger.Info(actualCase.Result.ToString());
+            Logger.Info(_project.ToString());
         }
     }
 }

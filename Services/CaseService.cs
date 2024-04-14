@@ -1,4 +1,5 @@
-﻿using RestSharp;
+﻿using Allure.NUnit.Attributes;
+using RestSharp;
 using Testiny.Clients;
 using Testiny.Models;
 
@@ -13,12 +14,12 @@ namespace Testiny.Services
             _client = client;
         }
 
-        public Task<Case> GetCase(int caseId)
+        public Task<RestResponse> GetCase(int caseId)
         {
             var request = new RestRequest("api/v1/testcase/{case_id}")
                 .AddUrlSegment("case_id", caseId);
 
-            return _client.ExecuteAsync<Case>(request);
+            return _client.ExecuteAsync(request);
         }
 
         public Task<Case> AddCase(Case tCase)

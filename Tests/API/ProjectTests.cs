@@ -12,7 +12,6 @@ namespace Testiny.Tests.API
     [TestFixture]
     public class ProjectTests : BaseApiTest
     {
-        private readonly Logger _logger = LogManager.GetCurrentClassLogger();
         private Project _project = null;
 
         [Test]
@@ -34,7 +33,7 @@ namespace Testiny.Tests.API
             });
 
             _project = actualProject.Result;
-            _logger.Info(_project.ToString());
+            Logger.Info(_project.ToString());
         }
 
         [Test]
@@ -54,7 +53,7 @@ namespace Testiny.Tests.API
                 Assert.That(actualProject.Description, Is.EqualTo(_project.Description));
             });
 
-            _logger.Info(actualProject.ToString());
+            Logger.Info(actualProject.ToString());
         }
 
         [Test]
@@ -72,7 +71,7 @@ namespace Testiny.Tests.API
             });
 
             _project = actualProject.Result;
-            _logger.Info(_project.ToString());
+            Logger.Info(_project.ToString());
         }
 
         [Test]
@@ -83,7 +82,7 @@ namespace Testiny.Tests.API
                 
             Assert.That(result.Result.StatusCode == HttpStatusCode.NotFound);
 
-            _logger.Info(result.Result.StatusCode);
+            Logger.Info(result.Result.StatusCode);
         }
     }
 }
