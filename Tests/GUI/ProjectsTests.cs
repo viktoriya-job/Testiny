@@ -28,6 +28,13 @@ namespace Testiny.Tests.GUI
             Description = "Test Description for Error project"
         };
 
+        private Project projectCorrect = new()
+        {
+            ProjectName = "Correct project",
+            ProjectKey = "CPK",
+            Description = "Test Description for Correct project"
+        };
+
         [TestCase("Pr")]
         [TestCase("Pr123")]
         [Category("Positive")]
@@ -144,10 +151,18 @@ namespace Testiny.Tests.GUI
                 .SuccessfulLogin(Configurator.Admin)
                 .CreateProjectMenuSelect();
 
-            ProjectSteps
-                .InputProjectFields(projectError, addProjectPage);
+            Assert.Multiple(() =>
+            {
+                ProjectSteps
+                    .InputProjectFields(projectCorrect, addProjectPage);
 
-            Assert.That(addProjectPage.AddButton.Enabled);
+                Assert.That(addProjectPage.AddButton.Enabled);
+
+                ProjectSteps
+                    .InputProjectFields(projectError, addProjectPage);
+
+                Assert.That(addProjectPage.AddButton.Enabled);
+            });
         }
     }
 }
