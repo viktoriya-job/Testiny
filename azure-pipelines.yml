@@ -25,12 +25,14 @@ steps:
     projects: 'Testiny.csproj'
 
 - task: PublishAllureReport@1
+  condition: always()
   displayName: Publish Report
   inputs:
     allureVersion: 2.27.0
     testResultsDir: .\bin\Debug\net8.0\allure-report\
 
 - task: PublishPipelineArtifact@1
+  condition: always()
   inputs:
     targetPath: '$(Build.SourcesDirectory)\bin\Debug\net8.0\allure-report'
     publishLocation: 'pipeline'
