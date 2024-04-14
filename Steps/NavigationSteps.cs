@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Allure.NUnit.Attributes;
+using OpenQA.Selenium;
 using Testiny.Models;
 using Testiny.Pages;
 
@@ -19,5 +20,14 @@ namespace Testiny.Steps
 
             return (T)Activator.CreateInstance(typeof(T), Driver, false);
         }
+
+        [AllureStep("Navigate To All Projects Page")]
+        public AllProjectsPage NavigateToAllProjectsPage() => new AllProjectsPage(Driver, true);
+
+        [AllureStep("Navigate To Dashboard Page")]
+        public DashboardPage NavigateToDashboardPage() => new DashboardPage(Driver, true);
+
+        [AllureStep("Navigate To Import Test Cases Page")]
+        public ImportTestCasesPage NavigateToImportTestCasesPage() => new ImportTestCasesPage(Driver, true);
     }
 }

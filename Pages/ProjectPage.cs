@@ -7,12 +7,14 @@ namespace Testiny.Pages
     {
         private static readonly By _titleLabelBy = By.CssSelector("[data-testid='header-dashboard']>p");
         private static readonly By _projectKeyTextBy = By.CssSelector("[data-testid='text-project-key']");
+        private static readonly By _addTestcasesButtonBy = By.CssSelector("[data-testid='button-create-tc']");
 
         public ProjectPage(IWebDriver driver) : base(driver) { }
 
         public UIElement TitleLable => new(Driver, _titleLabelBy);
-        public Button ProjectKeyText => new(Driver, _projectKeyTextBy);
-        public TopMenuPage topMenu => new TopMenuPage(Driver);
+        public UIElement ProjectKeyText => new(Driver, _projectKeyTextBy);
+        public Button AddTestcasesButton => new(Driver, _addTestcasesButtonBy);
+        public TopMenuPage TopMenu => new TopMenuPage(Driver);
 
         protected override string GetEndpoint()
         {
@@ -23,8 +25,7 @@ namespace Testiny.Pages
         {
             try
             {
-                return TitleLable.Text.Trim() == $"Have a great day – here is an overview of your {ProjectKeyText.Text.Trim()} project:" 
-                    && ProjectKeyText.Displayed;
+                return AddTestcasesButton.Displayed;
             }
             catch (Exception)
             {

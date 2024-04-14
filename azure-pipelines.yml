@@ -1,0 +1,37 @@
+trigger:
+- develop
+
+continueOnError: true
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Debug'
+
+steps:
+- task: NuGetToolInstaller@1
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    projects: 'Testiny.csproj'
+
+- task: PublishAllureReport@1
+  condition: always()
+  displayName: Publish Report
+  inputs:
+    allureVersion: 2.27.0
+    testResultsDir: .\bin\Debug\net8.0\allure-report\
+
+- task: PublishPipelineArtifact@1
+  condition: always()
+  inputs:
+    targetPath: '$(Build.SourcesDirectory)\bin\Debug\net8.0\allure-report'
+    publishLocation: 'pipeline'

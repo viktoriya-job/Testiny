@@ -6,10 +6,8 @@ namespace Testiny.Steps
 {
     public class ProjectsSteps(IWebDriver driver) : BaseSteps(driver)
     {
-        public ProjectPage AddProjectSuccessfull(Project project)
+        public ProjectPage AddProjectSuccessfull(Project project, AddProjectPage addProjectPage)
         {
-            AddProjectPage addProjectPage = new AddProjectPage(Driver);
-
             return addProjectPage
                     .InputNameValue(project.ProjectName)
                     .InputProjectKeyValue(project.ProjectKey)
@@ -17,15 +15,23 @@ namespace Testiny.Steps
                     .ClickAddButton();
         }
 
-        public AddProjectPage AddProjectUnsuccessfull(Project project)
+        public DialogPage AddProjectUnsuccessfull(Project project, AddProjectPage addProjectPage)
         {
-            AddProjectPage addProjectPage = new AddProjectPage(Driver);
-
-            return addProjectPage
+            addProjectPage
                     .InputNameValue(project.ProjectName)
                     .InputProjectKeyValue(project.ProjectKey)
                     .InputDescriptionValue(project.Description)
                     .ClickCloseButton();
+
+            return new DialogPage(Driver);
+        }
+
+        public AddProjectPage InputProjectFields(Project project, AddProjectPage addProjectPage)
+        {
+            return addProjectPage
+                    .InputNameValue(project.ProjectName)
+                    .InputProjectKeyValue(project.ProjectKey)
+                    .InputDescriptionValue(project.Description);
         }
     }
 }

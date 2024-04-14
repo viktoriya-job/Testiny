@@ -11,11 +11,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="allureConfig.json" />
     <None Remove="appsettings.json" />
+    <None Remove="azure-pipelines.yml" />
+    <None Remove="Resources\testiny_testcase_import_sample.csv" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="allureConfig.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="azure-pipelines.yml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -43,6 +52,12 @@
 
   <ItemGroup>
     <Folder Include="Clients\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\testiny_testcase_import_sample.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
