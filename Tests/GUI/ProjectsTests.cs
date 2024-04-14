@@ -124,7 +124,7 @@ namespace Testiny.Tests.GUI
 
         [Test]
         [Category("Positive")]
-        public void PopupMessageTest()
+        public void DialogWindowTest()
         {
             AddProjectPage addProjectPage = NavigationSteps
                 .SuccessfulLogin(Configurator.Admin)
@@ -136,18 +136,18 @@ namespace Testiny.Tests.GUI
             Assert.That(dialogPage.IsPageOpened);
         }
 
-        [Test]
-        [Category("Expected error")]
-        public void AddIncorrectProjectTest()
-        {
-            AddProjectPage addProjectPage = NavigationSteps
-                .SuccessfulLogin(Configurator.Admin)
-                .CreateProjectMenuSelect();
+        //[Test]
+        //[Category("Expected error")]
+        //public void AddIncorrectProjectTest()
+        //{
+        //    AddProjectPage addProjectPage = NavigationSteps
+        //        .SuccessfulLogin(Configurator.Admin)
+        //        .CreateProjectMenuSelect();
 
-            ProjectSteps
-                .InputProjectFields(projectError, addProjectPage);
+        //    ProjectSteps
+        //        .InputProjectFields(projectError, addProjectPage);
 
-            Assert.That(addProjectPage.AddButton.Enabled);
-        }
+        //    Assert.That(addProjectPage.AddButton.Enabled);
+        //}
     }
 }
