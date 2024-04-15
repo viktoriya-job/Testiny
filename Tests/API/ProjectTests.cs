@@ -1,5 +1,4 @@
 ﻿using Allure.NUnit.Attributes;
-using Newtonsoft.Json.Linq;
 using NLog;
 using System.Net;
 using Testiny.Helpers;
@@ -43,7 +42,6 @@ namespace Testiny.Tests.API
         {
             var result = ProjectService.GetProject(_project.Id);
 
-            JObject resultData = JObject.Parse(result.Result.Content);
             Project actualProject = JsonHelper<Project>.FromJson(result.Result.Content);
 
             Assert.Multiple(() =>
@@ -82,7 +80,6 @@ namespace Testiny.Tests.API
         {
             var result = ProjectService.GetProject(_project.Id);
 
-            JObject resultData = JObject.Parse(result.Result.Content);
             FailedResponse response = JsonHelper<FailedResponse>.FromJson(result.Result.Content);
 
             Assert.Multiple(() =>
