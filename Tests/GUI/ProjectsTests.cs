@@ -1,26 +1,14 @@
-﻿using Testiny.Helpers.Configuration;
+﻿using Allure.NUnit.Attributes;
+using Testiny.Helpers.Configuration;
 using Testiny.Models;
 using Testiny.Pages;
 using Testiny.Steps;
 
 namespace Testiny.Tests.GUI
 {
+    [AllureSuite("Project UI Tests")]
     public class ProjectsTests : BaseTest
     {
-        private Project projectAdd = new()
-        {
-            ProjectName = "Test Project 1 for Add Test",
-            ProjectKey = "PrjA1",
-            Description = "Test Description for Add Test"
-        };
-
-        private Project projectDel = new()
-        {
-            ProjectName = "Test Project 1 for Delete Test",
-            ProjectKey = "PrjD1",
-            Description = "Test Description for Delete Test"
-        };
-
         private Project projectError = new()
         {
             ProjectName = "Error project",
@@ -63,12 +51,12 @@ namespace Testiny.Tests.GUI
         [Category("Negative")]
         public void EnterProjectKeyValueUnsuccessTest(string projectKey)
         {
-             Project project = new()
-             {
+            Project project = new()
+            {
                 ProjectName = $"Project {projectKey}",
                 ProjectKey = projectKey,
                 Description = $"Test Description for {projectKey}"
-             };
+            };
 
             AddProjectPage addProjectPage = NavigationSteps
                 .SuccessfulLogin(Configurator.Admin)
@@ -88,9 +76,16 @@ namespace Testiny.Tests.GUI
         [Category("Positive")]
         public void AddProjectTest()
         {
+            Project projectAdd = new()
+            {
+                ProjectName = $"Test Project {Random.Next(10000)} for Add Test",
+                ProjectKey = $"p{Random.Next(100)}",
+                Description = "Test Description for Add Test"
+            };
+
             AddProjectPage addProjectPage = NavigationSteps
-                .SuccessfulLogin(Configurator.Admin)
-                .CreateProjectMenuSelect();
+                    .SuccessfulLogin(Configurator.Admin)
+                    .CreateProjectMenuSelect();
 
             ProjectPage projectPage = ProjectSteps
                 .AddProjectSuccessfull(projectAdd, addProjectPage);
@@ -105,9 +100,16 @@ namespace Testiny.Tests.GUI
         [Category("Positive")]
         public void RemoveProjectTest()
         {
+            Project projectDel = new()
+            {
+                ProjectName = "Test Project 1 for Delete Test",
+                ProjectKey = "PrjD1",
+                Description = "Test Description for Delete Test"
+            };
+
             AddProjectPage addProjectPage = NavigationSteps
-                .SuccessfulLogin(Configurator.Admin)
-                .CreateProjectMenuSelect();
+                    .SuccessfulLogin(Configurator.Admin)
+                    .CreateProjectMenuSelect();
 
             ProjectPage projectPage = ProjectSteps
                 .AddProjectSuccessfull(projectDel, addProjectPage);
@@ -139,7 +141,7 @@ namespace Testiny.Tests.GUI
                 .CreateProjectMenuSelect();
 
             DialogPage dialogPage = ProjectSteps
-                .AddProjectUnsuccessfull(projectAdd, addProjectPage);
+                .AddProjectUnsuccessfull(projectCorrect, addProjectPage);
 
             Assert.That(dialogPage.IsPageOpened);
         }

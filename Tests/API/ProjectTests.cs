@@ -1,4 +1,5 @@
 ﻿using Allure.Net.Commons;
+using Allure.NUnit.Attributes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NLog;
@@ -10,12 +11,14 @@ using Testiny.Models;
 namespace Testiny.Tests.API
 {
     [TestFixture]
+    [AllureSuite("Project API Tests")]
     public class ProjectTests : BaseApiTest
     {
         private Project _project = null;
 
         [Test]
         [Order (1)]
+        [Category("POST Method NFE Tests")]
         public void AddProjectTest()
         {
             _project = new Project()
@@ -38,6 +41,7 @@ namespace Testiny.Tests.API
 
         [Test]
         [Order(2)]
+        [Category("GET Method NFE Tests")]
         public void GetProjectTest()
         {
             var result = ProjectService.GetProject(_project.Id);
@@ -76,6 +80,7 @@ namespace Testiny.Tests.API
 
         [Test]
         [Order(4)]
+        [Category("GET Method AFE Tests")]
         public void GetDeletedProjectTest()
         {
             var result = ProjectService.GetProject(_project.Id);

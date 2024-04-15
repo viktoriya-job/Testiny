@@ -10,6 +10,7 @@ using System.Net;
 namespace Testiny.Tests.API
 {
     [TestFixture]
+    [AllureSuite("TestCases API Tests")]
     public class CaseTests : BaseApiTest
     {
         private Case _case = null;
@@ -45,6 +46,7 @@ namespace Testiny.Tests.API
 
         [Test]
         [Order(1)]
+        [Category("GET Method NFE Tests")]
         public void GetCaseTest()
         {
             var result = CaseService.GetCase(_case.Id);
