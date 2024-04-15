@@ -5,5 +5,6 @@
         public string? URL { get; set; }
         public string? URI { get; set; }
         public string? XApiKey { get; set; }
+        public string? XApiKeyDeleted { get; set; }
     }
 }

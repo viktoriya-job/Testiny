@@ -13,6 +13,7 @@ namespace Testiny.Tests.API
         protected readonly Logger Logger = LogManager.GetCurrentClassLogger();
         protected ProjectService? ProjectService;
         protected CaseService? CaseService;
+        protected CaseService? CaseServiceNotAuth;
         protected Random Random = new Random();
 
         [OneTimeSetUp]
@@ -25,8 +26,11 @@ namespace Testiny.Tests.API
         public void SetUpApi()
         {
             var restClient = new RestClientExtended();
+            var restClientNotAyth = new RestClientExtended(false);
+
             ProjectService = new ProjectService(restClient);
             CaseService = new CaseService(restClient);
+            CaseServiceNotAuth = new CaseService(restClientNotAyth);
         }
 
         [OneTimeTearDown]
@@ -34,6 +38,7 @@ namespace Testiny.Tests.API
         {
             ProjectService?.Dispose();
             CaseService?.Dispose();
+            CaseServiceNotAuth?.Dispose();
         }
     }
 }

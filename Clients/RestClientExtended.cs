@@ -10,13 +10,21 @@ namespace Testiny.Clients
         private readonly RestClient _client;
         private readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
-        public RestClientExtended()
+        public RestClientExtended(bool isActualKey = true)
         {
             var options = new RestClientOptions(Configurator.AppSettings.URI ?? throw new InvalidOperationException());
 
             _client = new RestClient(options);
             _client.AddDefaultHeader("accept", "application/json");
-            _client.AddDefaultHeader("X-Api-Key", Configurator.AppSettings.XApiKey);
+
+            if (isActualKey)
+            {
+                _client.AddDefaultHeader("X-Api-Key", Configurator.AppSettings.XApiKey);
+            }
+            else
+            {
+                _client.AddDefaultHeader("X-Api-Key", Configurator.AppSettings.XApiKeyDeleted);
+            }
         }
 
         public void Dispose()

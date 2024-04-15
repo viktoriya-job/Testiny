@@ -6,6 +6,7 @@ namespace Testiny.Services
     public interface ICaseService
     {
         Task<Case> AddCase(Case @case);
-        Task<RestResponse> GetCase(int caseId);
+        Task<RestResponse> GetCaseById(int caseId);
+        Task<RestResponse> GetCaseByQuery(string query);
     }
 }
