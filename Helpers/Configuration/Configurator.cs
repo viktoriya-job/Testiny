@@ -19,7 +19,7 @@ namespace Testiny.Helpers.Configuration
         {
             var basePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             var builder = new ConfigurationBuilder()
-                .SetBasePath(basePath)
+                .SetBasePath(basePath ?? throw new InvalidOperationException())
                 .AddJsonFile("appsettings.json");
 
             var appSettingFiles = Directory.EnumerateFiles(basePath ?? string.Empty, "appsettings.*.json");
@@ -41,6 +41,7 @@ namespace Testiny.Helpers.Configuration
 
                 appSettings.URL = child["URL"];
                 appSettings.URI = child["URI"];
+                appSettings.XApiKey = child["XApiKey"];
 
                 return appSettings;
             }

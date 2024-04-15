@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Allure.NUnit.Attributes;
+using OpenQA.Selenium;
 using System;
 using System.Reflection;
 using Testiny.Helpers.Configuration;
@@ -6,6 +7,7 @@ using Testiny.Pages;
 
 namespace Testiny.Tests.GUI
 {
+    [AllureSuite("Upload UI Tests")]
     public class ImportTests : BaseTest
     {
         [Test]

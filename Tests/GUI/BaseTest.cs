@@ -5,7 +5,6 @@ using System.Text;
 using Testiny.Core;
 using Testiny.Helpers;
 using Testiny.Helpers.Configuration;
-using Testiny.Models;
 using Testiny.Steps;
 
 namespace Testiny.Tests;
@@ -17,6 +16,8 @@ public class BaseTest
 {
     protected IWebDriver Driver { get; private set; }
     protected WaitsHelper WaitsHelper { get; private set; }
+
+    protected Random Random = new Random();
 
     protected NavigationSteps NavigationSteps;
     protected ProjectsSteps ProjectSteps;

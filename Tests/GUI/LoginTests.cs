@@ -2,9 +2,11 @@
 using Testiny.Helpers.Configuration;
 using OpenQA.Selenium;
 using Testiny.Models;
+using Allure.NUnit.Attributes;
 
 namespace Testiny.Tests.GUI
 {
+    [AllureSuite("Login UI Tests")]
     public class LoginTests : BaseTest
     {
         [Test]
