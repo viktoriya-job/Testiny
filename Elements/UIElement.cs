@@ -66,6 +66,7 @@ public class UIElement : IWebElement
     public List<UIElement> FindUIElementsFull(By by)
     {
         var result = new List<UIElement>();
+
         foreach (var webElement in FindElementsFull(by))
         {
             result.Add(new UIElement(_webDriver, webElement));
@@ -175,7 +176,6 @@ public class UIElement : IWebElement
     {
         get
         {
-
             if (_webElement.Text != null || _webElement.Text.Equals(""))
             {
                 return GetAttribute("innerText");

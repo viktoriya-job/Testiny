@@ -1,9 +1,6 @@
-﻿using Allure.Net.Commons;
-using Allure.NUnit.Attributes;
-using Newtonsoft.Json;
+﻿using Allure.NUnit.Attributes;
 using Newtonsoft.Json.Linq;
 using NLog;
-using RestSharp;
 using System.Net;
 using Testiny.Helpers;
 using Testiny.Models;
@@ -17,7 +14,7 @@ namespace Testiny.Tests.API
         private Project _project = null;
 
         [Test]
-        [Order (1)]
+        [Order(1)]
         [Category("POST Method NFE Tests")]
         public void AddProjectTest()
         {
@@ -84,10 +81,16 @@ namespace Testiny.Tests.API
         public void GetDeletedProjectTest()
         {
             var result = ProjectService.GetProject(_project.Id);
-                
-            Assert.That(result.Result.StatusCode == HttpStatusCode.NotFound);
 
-            Logger.Info(result.Result.StatusCode);
+            JObject resultData = JObject.Parse(result.Result.Content);
+            FailedResponse response = JsonHelper<FailedResponse>.FromJson(result.Result.Content);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Result.StatusCode == HttpStatusCode.NotFound);
+                Assert.That(response.Code, Is.EqualTo("API_DATA_NOT_FOUND"));
+                Assert.That(response.Message, Is.EqualTo($"The entity with id {_project.Id} was not found."));
+            });
         }
     }
 }

@@ -1,10 +1,7 @@
 ﻿using Allure.NUnit.Attributes;
 using NLog;
-using System.Reflection;
 using Testiny.Helpers;
 using Testiny.Models;
-using Allure.Net.Commons;
-using Newtonsoft.Json.Linq;
 using System.Net;
 
 namespace Testiny.Tests.API
@@ -13,55 +10,86 @@ namespace Testiny.Tests.API
     [AllureSuite("TestCases API Tests")]
     public class CaseTests : BaseApiTest
     {
-        private Case _case = null;
+        private List<Case> _cases = new List<Case>();
         private Project _project = null;
 
         [OneTimeSetUp]
         public void AddData()
         {
-            string projectFileName = "projectTestdata.json";
-            string caseFileName = "caseTestdata.json";
+            string projectFilePath = Path.Combine(LocationResources, "projectTestdata.json");
+            string caseFilePath = Path.Combine(LocationResources, "caseTestdata.json");
 
-            string location = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-
-
-            //Adding Project from Json
-            string path = Path.Combine(location, "Resources", projectFileName);
-
-            Project project = JsonHelper<Project>.FromJson(path, FileMode.Open);
+            Project project = JsonHelper<Project>.FromJson(projectFilePath, FileMode.Open);
 
             _project = ProjectService.AddProject(project).Result;
             Logger.Info(_project.ToString());
 
+            _cases = JsonHelper<List<Case>>.FromJson(caseFilePath, FileMode.Open);
 
-            //Adding TestCase from Json
-            path = Path.Combine(location, "Resources", caseFileName);
+            for (int i = 0; i < _cases.Count; i++)
+            {
+                _cases[i].ProjectId = _project.Id;
+                _cases[i] = CaseService.AddCase(_cases[i]).Result;
+            }
 
-            Case tCase = JsonHelper<Case>.FromJson(path, FileMode.Open);
-            tCase.ProjectId = _project.Id;
+            Assert.That(_cases.Count == 5);
 
-            _case = CaseService.AddCase(tCase).Result;
-            Logger.Info(_case.ToString());
+            Logger.Info($"{_cases.Count} test-cases added to the project {_project.Id}, {_project.ProjectName}");
         }
 
         [Test]
-        [Order(1)]
         [Category("GET Method NFE Tests")]
-        public void GetCaseTest()
+        public void GetCaseByIdTest()
         {
-            var result = CaseService.GetCase(_case.Id);
+            var response = CaseService.GetCaseById(_cases[0].Id);
 
-            JObject resultData = JObject.Parse(result.Result.Content);
-            Case actualCase = JsonHelper<Case>.FromJson(result.Result.Content);
+            Case actualCase = JsonHelper<Case>.FromJson(response.Result.Content);
 
             Assert.Multiple(() =>
             {
-                Assert.That(result.Result.StatusCode == HttpStatusCode.OK);
-                Assert.That(actualCase.Title, Is.EqualTo(_case.Title));
-                Assert.That(actualCase.ProjectId, Is.EqualTo(_case.ProjectId));
+                Assert.That(response.Result.StatusCode == HttpStatusCode.OK);
+                Assert.That(actualCase.Title, Is.EqualTo(_cases[0].Title));
+                Assert.That(actualCase.ProjectId, Is.EqualTo(_cases[0].ProjectId));
             });
 
             Logger.Info(actualCase.ToString());
+        }
+
+        [Test]
+        [Category("GET Method NFE Tests")]
+        public void GetCasesByQueryTest()
+        {
+            string query = "{\"filter\": {\"project_id\": " + $"{_project.Id}" + "}}";
+            var response = CaseService.GetCasesByQuery(query);
+
+            Cases actualCases = JsonHelper<Cases>.FromJson(response.Result.Content);
+
+            Logger.Info(actualCases.CaseList.Count());
+            Logger.Info(_cases.Count());
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(response.Result.StatusCode == HttpStatusCode.OK);
+                Assert.That(actualCases.CaseList.Count() == _cases.Count);
+            });
+
+            Logger.Info(actualCases.Meta.ToString());
+        }
+
+        [Test]
+        [Category("GET Method AFE Tests")]
+        public void GetCaseNotAuth()
+        {
+            var response = CaseServiceNotAuth.GetCaseById(_cases[0].Id);
+
+            FailedResponse responseBody = JsonHelper<FailedResponse>.FromJson(response.Result.Content);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(response.Result.StatusCode == HttpStatusCode.Forbidden);
+                Assert.That(responseBody.Code, Is.EqualTo("API_ACCESS_DENIED"));
+                Assert.That(responseBody.Message, Is.EqualTo("Invalid API key"));
+            });
         }
 
         [OneTimeTearDown]

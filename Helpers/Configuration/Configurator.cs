@@ -42,6 +42,7 @@ namespace Testiny.Helpers.Configuration
                 appSettings.URL = child["URL"];
                 appSettings.URI = child["URI"];
                 appSettings.XApiKey = child["XApiKey"];
+                appSettings.XApiKeyDeleted = child["XApiKeyDel"];
 
                 return appSettings;
             }
