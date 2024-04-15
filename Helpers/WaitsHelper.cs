@@ -89,7 +89,7 @@ namespace Testiny.Helpers
         {
             List<UIElement> result = new List<UIElement>();
 
-            foreach(IWebElement element in WaitForPresenceOfAllElementsLocatedBy(locator))
+            foreach (IWebElement element in WaitForPresenceOfAllElementsLocatedBy(locator))
             {
                 result.Add(new UIElement(driver, element));
             }

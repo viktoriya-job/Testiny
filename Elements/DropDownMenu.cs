@@ -1,7 +1,4 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.WaitHelpers;
-using Testiny.Helpers.Configuration;
 
 namespace Testiny.Elements
 {
@@ -19,6 +16,7 @@ namespace Testiny.Elements
         {
             _uiElement = new UIElement(webDriver, locator);
             _uiElement.Click();
+
             if (separatedOptions)
             {
                 _options = _uiElement.FindUIElementsFull(_locatorAOptions);
@@ -28,7 +26,7 @@ namespace Testiny.Elements
             {
                 _options = _uiElement.FindUIElementsFull(_locatorOptions);
                 _optionsValues = _uiElement.FindUIElementsFull(_locatorOptionsText);
-            }  
+            }
         }
 
         public bool Enabled => _uiElement.Enabled;
@@ -79,6 +77,7 @@ namespace Testiny.Elements
                     return;
                 }
             }
+
             if (!flag)
             {
                 throw new NoSuchElementException("Cannot locate element with text: " + text);

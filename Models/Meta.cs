@@ -11,7 +11,7 @@ namespace Testiny.Models
 
         public override string? ToString()
         {
-            return $"{ nameof(Count)}: {Count}, " +
+            return $"{nameof(Count)}: {Count}, " +
                 $"{nameof(Limit)}: {Limit}, " +
                 $"{nameof(Offset)}: {Offset}, " +
                 $"{nameof(totalCount)}: {totalCount}";

@@ -93,7 +93,11 @@ namespace Testiny.Tests.GUI
 
             AllProjectsPage allProjectsPage = NavigationSteps.NavigateToAllProjectsPage();
 
-            Assert.That(allProjectsPage.ProjectKeysText.Contains(projectAdd.ProjectKey.ToUpper()));
+            Assert.Multiple(() =>
+            {
+                Assert.That(allProjectsPage.ProjectKeysText.Contains(projectAdd.ProjectKey.ToUpper()));
+                Assert.That(allProjectsPage.ProjectNamesText.Contains(projectAdd.ProjectName));
+            });
         }
 
         [Test]
@@ -129,6 +133,7 @@ namespace Testiny.Tests.GUI
                 .NavigateToDashboardPage();
 
             TopMenuPage topMenuPage = new TopMenuPage(Driver);
+
             Assert.That(!topMenuPage.ProjectsMenu.GetOptions().Contains(projectDel.ProjectName));
         }
 

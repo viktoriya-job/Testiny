@@ -10,13 +10,17 @@ namespace Testiny.Pages
 
         private static readonly By _titleLabelBy = By.CssSelector("div h3.sc-fAUVGl");
         private static readonly By _projectKeysBy = By.CssSelector("[data-testid='cell-project_key'] span");
+        private static readonly By _projectNamesBy = By.CssSelector("[data-testid='cell-name'] span");
 
         public AllProjectsPage(IWebDriver driver) : base(driver, false) { }
         public AllProjectsPage(IWebDriver driver, bool openPageByUrl) : base(driver, openPageByUrl) { }
 
         public UIElement TitleLabel => new(Driver, _titleLabelBy);
         public List<UIElement> ProjectKeys => WaitsHelper.WaitForAllVisibleUiElementsLocatedBy(_projectKeysBy);
-        public List<string> ProjectKeysText { get 
+        public List<UIElement> ProjectNames => WaitsHelper.WaitForAllVisibleUiElementsLocatedBy(_projectNamesBy);
+        public List<string> ProjectKeysText
+        {
+            get
             {
                 List<string> result = new List<string>();
 
@@ -26,7 +30,22 @@ namespace Testiny.Pages
                 }
 
                 return result;
-            } 
+            }
+        }
+
+        public List<string> ProjectNamesText
+        {
+            get
+            {
+                List<string> result = new List<string>();
+
+                foreach (UIElement element in ProjectNames)
+                {
+                    result.Add(element.Text);
+                }
+
+                return result;
+            }
         }
 
         [AllureStep("Select record in All Projects Page")]
