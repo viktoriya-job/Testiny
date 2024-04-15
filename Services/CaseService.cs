@@ -20,8 +20,8 @@ namespace Testiny.Services
 
             return _client.ExecuteAsync(request);
         }
-        
-        public Task<RestResponse> GetCaseByQuery(string query)
+
+        public Task<RestResponse> GetCasesByQuery(string query)
         {
             var request = new RestRequest("api/v1/testcase")
                 .AddParameter("q", query);

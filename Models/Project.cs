@@ -15,5 +15,20 @@ namespace Testiny.Models
         [JsonPropertyName("modified_by")] public int ModifiedBy { get; set; }
         [JsonPropertyName("deleted_at")] public string? DeletedAt { get; set; }
         [JsonPropertyName("deleted_by")] public int? DeletedBy { get; set; }
+
+        public override string? ToString()
+        {
+            return $"{nameof(Id)}: {Id}, " +
+                $"{nameof(ProjectName)}: {ProjectName}, " +
+                $"{nameof(ProjectKey)}: {ProjectKey}, " +
+                $"{nameof(Description)}: {Description}, " +
+                $"{nameof(IsDeleted)}: {IsDeleted}, " +
+                $"{nameof(CreatedAt)}: {CreatedAt}, " +
+                $"{nameof(CreatedBy)}: {CreatedBy}, " +
+                $"{nameof(ModifiedAt)}: {ModifiedAt}, " +
+                $"{nameof(ModifiedBy)}: {ModifiedBy}, " +
+                $"{nameof(DeletedAt)}: {DeletedAt}, " +
+                $"{nameof(DeletedBy)}: {DeletedBy}";
+        }
     }
 }

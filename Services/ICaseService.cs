@@ -7,6 +7,6 @@ namespace Testiny.Services
     {
         Task<Case> AddCase(Case @case);
         Task<RestResponse> GetCaseById(int caseId);
-        Task<RestResponse> GetCaseByQuery(string query);
+        Task<RestResponse> GetCasesByQuery(string query);
     }
 }

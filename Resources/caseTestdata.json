@@ -1,7 +1,32 @@
-{
-  "title": "A Descriptive Title",
-  "is_deleted": false,
-  "project_id": 0,
-  "type": "string",
-  "estimate": 100
-}
+[
+  {
+    "title": "TestCase 1",
+    "is_deleted": false,
+    "type": "Acceptance",
+    "estimate": 100
+  },
+  {
+    "title": "TestCase 2",
+    "is_deleted": false,
+    "type": "Regression",
+    "estimate": 50
+  },
+  {
+    "title": "TestCase 3",
+    "is_deleted": false,
+    "type": "Usability",
+    "estimate": 70
+  },
+  {
+    "title": "TestCase 4",
+    "is_deleted": false,
+    "type": "Functional",
+    "estimate": 20
+  },
+  {
+    "title": "TestCase 5",
+    "is_deleted": false,
+    "type": "Other",
+    "estimate": 45
+  }
+]
