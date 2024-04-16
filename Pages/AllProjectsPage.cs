@@ -18,6 +18,7 @@ namespace Testiny.Pages
         public UIElement TitleLabel => new(Driver, _titleLabelBy);
         public List<UIElement> ProjectKeys => WaitsHelper.WaitForAllVisibleUiElementsLocatedBy(_projectKeysBy);
         public List<UIElement> ProjectNames => WaitsHelper.WaitForAllVisibleUiElementsLocatedBy(_projectNamesBy);
+
         public List<string> ProjectKeysText
         {
             get
@@ -48,11 +49,18 @@ namespace Testiny.Pages
             }
         }
 
-        [AllureStep("Select record in All Projects Page")]
-        public AddProjectPage SelectRecordByProjectKeyElement(UIElement element)
+        [AllureStep("Select record by Project Key")]
+        public EditProjectPage SelectRecordByProjectKeyElement(UIElement element)
         {
             element.Click();
-            return new AddProjectPage(Driver);
+            return new EditProjectPage(Driver);
+        }
+
+        [AllureStep("Select record by Project Name")]
+        public ProjectPage SelectRecordByProjectNameElementLink(UIElement element)
+        {
+            element.Click();
+            return new ProjectPage(Driver);
         }
 
         protected override string GetEndpoint() => _endPoint;

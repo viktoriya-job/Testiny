@@ -27,6 +27,7 @@ namespace Testiny.Tests.GUI
         [TestCase("")]
         [TestCase("Pr")]
         [TestCase("Pr123")]
+        [AllureSubSuite("Checking input fields Tests")]
         [AllureFeature("Positive UI Tests")]
         public void EnterProjectKeyValueSuccessTest(string projectKey)
         {
@@ -50,6 +51,7 @@ namespace Testiny.Tests.GUI
 
         [TestCase("P")]
         [TestCase("Pr1234")]
+        [AllureSubSuite("Checking input fields Tests")]
         [AllureFeature("Negative UI Tests")]
         public void EnterProjectKeyValueUnsuccessTest(string projectKey)
         {
@@ -76,6 +78,7 @@ namespace Testiny.Tests.GUI
         }
 
         [Test]
+        [AllureSubSuite("Add / Remove project Tests")]
         [AllureFeature("Positive UI Tests")]
         public void AddProjectTest()
         {
@@ -92,7 +95,6 @@ namespace Testiny.Tests.GUI
 
             ProjectPage projectPage = ProjectSteps
                 .AddProjectSuccessfull(projectAdd, addProjectPage);
-            Thread.Sleep(1000);
 
             AllProjectsPage allProjectsPage = NavigationSteps.NavigateToAllProjectsPage();
 
@@ -105,6 +107,7 @@ namespace Testiny.Tests.GUI
         }
 
         [Test]
+        [AllureSubSuite("Add / Remove project Tests")]
         [AllureFeature("Positive UI Tests")]
         public void RemoveProjectTest()
         {
@@ -121,28 +124,26 @@ namespace Testiny.Tests.GUI
 
             ProjectPage projectPage = ProjectSteps
                 .AddProjectSuccessfull(projectDel, addProjectPage);
-            Thread.Sleep(1000);
 
             AllProjectsPage allProjectsPage = NavigationSteps
                 .NavigateToAllProjectsPage();
 
             var index = allProjectsPage.ProjectKeys.FindIndex(projectKey => projectKey.Text.Trim().ToUpper() == projectDel.ProjectKey.ToUpper());
 
-            AllProjectsPage allProjectsPageNew = allProjectsPage
+            allProjectsPage
                 .SelectRecordByProjectKeyElement(allProjectsPage.ProjectKeys[index])
                 .DeleteButtonClick()
                 .ConfirmButtonClick<AllProjectsPage>();
 
-            NavigationSteps
-                .NavigateToDashboardPage();
+            DashboardPage dashboardPage = NavigationSteps
+                 .NavigateToDashboardPage();
 
-            TopMenuPage topMenuPage = new TopMenuPage(Driver);
-
-            AllureApi.Step("Checking is the project list does not contain removed project");
-            Assert.That(!topMenuPage.ProjectsMenu.GetOptions().Contains(projectDel.ProjectName));
+            AllureApi.Step("Checking is the project list on DropDown menu does not contain removed project");
+            Assert.That(!dashboardPage.TopMenuPage.ProjectsMenu.GetOptions().Contains(projectDel.ProjectName));
         }
 
         [Test]
+        [AllureSubSuite("Dialog Window Tests")]
         [AllureFeature("Positive UI Tests")]
         public void DialogWindowTest()
         {
@@ -157,6 +158,7 @@ namespace Testiny.Tests.GUI
         }
 
         [Test]
+        [AllureSubSuite("Checking input fields Tests")]
         [AllureFeature("Expected error UI Tests")]
         public void AddIncorrectProjectTest()
         {

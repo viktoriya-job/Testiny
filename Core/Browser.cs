@@ -1,5 +1,4 @@
-﻿using AngleSharp;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using Testiny.Helpers.Configuration;
 
 namespace Testiny.Core

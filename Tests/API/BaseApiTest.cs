@@ -17,12 +17,6 @@ namespace Testiny.Tests.API
         protected Random Random = new Random();
 
         [OneTimeSetUp]
-        public static void OneTimeSetup()
-        {
-            AllureLifecycle.Instance.CleanupResultDirectory();
-        }
-
-        [OneTimeSetUp]
         public void SetUpApi()
         {
             var restClient = new RestClientExtended();
@@ -31,6 +25,8 @@ namespace Testiny.Tests.API
             ProjectService = new ProjectService(restClient);
             CaseService = new CaseService(restClient);
             CaseServiceNotAuth = new CaseService(restClientNotAyth);
+
+            AllureLifecycle.Instance.CleanupResultDirectory();
         }
 
         [OneTimeTearDown]

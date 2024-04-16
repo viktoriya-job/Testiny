@@ -6,40 +6,26 @@ namespace Testiny.Elements
     {
         private UIElement _uiElement;
         private List<UIElement> _options;
-        private List<UIElement> _optionsValues;
-        private By _locatorOptions = By.CssSelector("[data-testid='dropdown-menu']>li");
-        private By _locatorAOptions = By.CssSelector("[data-testid='dropdown-menu']>a>li");
-        private By _locatorOptionsText = By.CssSelector("[data-testid='dropdown-menu']>li>div.menu-label");
-        private By _locatorAOptionsText = By.CssSelector("[data-testid='dropdown-menu']>a>li>div.menu-label");
 
-        public DropDownMenu(IWebDriver webDriver, By locator, bool separatedOptions)
+        private By _optionsBy = By.CssSelector("[data-testid='dropdown-menu'] li>div.menu-label");
+
+        public DropDownMenu(IWebDriver webDriver, By locator)
         {
             _uiElement = new UIElement(webDriver, locator);
             _uiElement.Click();
 
-            if (separatedOptions)
-            {
-                _options = _uiElement.FindUIElementsFull(_locatorAOptions);
-                _optionsValues = _uiElement.FindUIElementsFull(_locatorAOptionsText);
-            }
-            else
-            {
-                _options = _uiElement.FindUIElementsFull(_locatorOptions);
-                _optionsValues = _uiElement.FindUIElementsFull(_locatorOptionsText);
-            }
+            _options = _uiElement.FindUIElementsFull(_optionsBy);
         }
 
         public bool Enabled => _uiElement.Enabled;
 
         public bool Displayed => _uiElement.Displayed;
 
-        private void Click() => _uiElement.Click();
-
         public List<string> GetOptions()
         {
             var result = new List<string>();
 
-            foreach (UIElement element in _optionsValues)
+            foreach (UIElement element in _options)
             {
                 result.Add(element.Text);
             }
@@ -65,10 +51,10 @@ namespace Testiny.Elements
 
             if (String.IsNullOrEmpty(text))
             {
-                throw new ArgumentNullException("text", "text must not be null");
+                throw new ArgumentNullException(text, "text must not be null");
             }
 
-            foreach (UIElement option in _optionsValues)
+            foreach (UIElement option in _options)
             {
                 if (option.Text.Trim() == text)
                 {
