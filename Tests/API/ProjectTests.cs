@@ -1,4 +1,5 @@
-﻿using Allure.NUnit.Attributes;
+﻿using Allure.Net.Commons;
+using Allure.NUnit.Attributes;
 using NLog;
 using System.Net;
 using Testiny.Helpers;
@@ -14,7 +15,8 @@ namespace Testiny.Tests.API
 
         [Test]
         [Order(1)]
-        [Category("POST Method NFE Tests")]
+        [AllureFeature("API POST Method")]
+        [AllureFeature("API NFE Tests")]
         public void AddProjectTest()
         {
             _project = new Project()
@@ -23,6 +25,7 @@ namespace Testiny.Tests.API
                 Description = "ProjectApiTest Description"
             };
 
+            AllureApi.Step("Sending a request and processing response");
             var actualProject = ProjectService.AddProject(_project);
 
             Assert.Multiple(() =>
@@ -37,11 +40,14 @@ namespace Testiny.Tests.API
 
         [Test]
         [Order(2)]
-        [Category("GET Method NFE Tests")]
+        [AllureFeature("API GET Method")]
+        [AllureFeature("API NFE Tests")]
         public void GetProjectTest()
         {
+            AllureApi.Step("Sending a request");
             var result = ProjectService.GetProject(_project.Id);
 
+            AllureApi.Step("Response processing");
             Project actualProject = JsonHelper<Project>.FromJson(result.Result.Content);
 
             Assert.Multiple(() =>
@@ -57,8 +63,11 @@ namespace Testiny.Tests.API
 
         [Test]
         [Order(3)]
+        [AllureFeature("API DELETE Method")]
+        [AllureFeature("API NFE Tests")]
         public void RemoveProjectTest()
         {
+            AllureApi.Step("Sending a request and processing response");
             int projectId = _project.Id;
             var actualProject = ProjectService.RemoveProject(projectId);
 
@@ -75,11 +84,14 @@ namespace Testiny.Tests.API
 
         [Test]
         [Order(4)]
-        [Category("GET Method AFE Tests")]
+        [AllureFeature("API GET Method")]
+        [AllureFeature("API AFE Tests")]
         public void GetDeletedProjectTest()
         {
+            AllureApi.Step("Sending a request");
             var result = ProjectService.GetProject(_project.Id);
 
+            AllureApi.Step("Response processing");
             FailedResponse response = JsonHelper<FailedResponse>.FromJson(result.Result.Content);
 
             Assert.Multiple(() =>

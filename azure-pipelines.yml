@@ -1,4 +1,5 @@
 trigger:
+- main
 - develop
 
 continueOnError: true
@@ -32,6 +33,7 @@ steps:
 
 - task: PublishPipelineArtifact@1
   condition: always()
+    displayName: Publish Artifact
   inputs:
     targetPath: '$(Build.SourcesDirectory)\bin\Debug\net8.0\allure-report'
     publishLocation: 'pipeline'

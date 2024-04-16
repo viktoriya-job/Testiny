@@ -45,6 +45,7 @@ namespace Testiny.Pages
             throw new NotImplementedException();
         }
 
+        [AllureStep("Checking is the Dialog page opened")]
         public override bool IsPageOpened()
         {
             try

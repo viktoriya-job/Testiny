@@ -1,4 +1,5 @@
-﻿using Allure.NUnit.Attributes;
+﻿using Allure.Net.Commons;
+using Allure.NUnit.Attributes;
 using Testiny.Helpers.Configuration;
 using Testiny.Models;
 using Testiny.Pages;
@@ -26,7 +27,7 @@ namespace Testiny.Tests.GUI
         [TestCase("")]
         [TestCase("Pr")]
         [TestCase("Pr123")]
-        [Category("Positive")]
+        [AllureFeature("Positive UI Tests")]
         public void EnterProjectKeyValueSuccessTest(string projectKey)
         {
             Project project = new()
@@ -43,12 +44,13 @@ namespace Testiny.Tests.GUI
             ProjectSteps
                 .InputProjectFields(project, addProjectPage);
 
+            AllureApi.Step("Checking is the Create button enabled");
             Assert.That(addProjectPage.AddButton.Enabled);
         }
 
         [TestCase("P")]
         [TestCase("Pr1234")]
-        [Category("Negative")]
+        [AllureFeature("Negative UI Tests")]
         public void EnterProjectKeyValueUnsuccessTest(string projectKey)
         {
             Project project = new()
@@ -65,6 +67,7 @@ namespace Testiny.Tests.GUI
             ProjectSteps
                 .InputProjectFields(project, addProjectPage);
 
+            AllureApi.Step("Checking is the Create button disabled and error text displayed");
             Assert.Multiple(() =>
             {
                 Assert.That(!addProjectPage.AddButton.Enabled);
@@ -73,7 +76,7 @@ namespace Testiny.Tests.GUI
         }
 
         [Test]
-        [Category("Positive")]
+        [AllureFeature("Positive UI Tests")]
         public void AddProjectTest()
         {
             Project projectAdd = new()
@@ -93,6 +96,7 @@ namespace Testiny.Tests.GUI
 
             AllProjectsPage allProjectsPage = NavigationSteps.NavigateToAllProjectsPage();
 
+            AllureApi.Step("Checking is the allProjectsPage contains new project");
             Assert.Multiple(() =>
             {
                 Assert.That(allProjectsPage.ProjectKeysText.Contains(projectAdd.ProjectKey.ToUpper()));
@@ -101,13 +105,13 @@ namespace Testiny.Tests.GUI
         }
 
         [Test]
-        [Category("Positive")]
+        [AllureFeature("Positive UI Tests")]
         public void RemoveProjectTest()
         {
             Project projectDel = new()
             {
-                ProjectName = "Test Project 1 for Delete Test",
-                ProjectKey = "PrjD1",
+                ProjectName = $"Test Project {Random.Next(10000)} for Add Test",
+                ProjectKey = $"p{Random.Next(100)}",
                 Description = "Test Description for Delete Test"
             };
 
@@ -126,7 +130,7 @@ namespace Testiny.Tests.GUI
 
             AllProjectsPage allProjectsPageNew = allProjectsPage
                 .SelectRecordByProjectKeyElement(allProjectsPage.ProjectKeys[index])
-                .ClickDeleteButton()
+                .DeleteButtonClick()
                 .ConfirmButtonClick<AllProjectsPage>();
 
             NavigationSteps
@@ -134,11 +138,12 @@ namespace Testiny.Tests.GUI
 
             TopMenuPage topMenuPage = new TopMenuPage(Driver);
 
+            AllureApi.Step("Checking is the project list does not contain removed project");
             Assert.That(!topMenuPage.ProjectsMenu.GetOptions().Contains(projectDel.ProjectName));
         }
 
         [Test]
-        [Category("Positive")]
+        [AllureFeature("Positive UI Tests")]
         public void DialogWindowTest()
         {
             AddProjectPage addProjectPage = NavigationSteps
@@ -152,7 +157,7 @@ namespace Testiny.Tests.GUI
         }
 
         [Test]
-        [Category("Expected error")]
+        [AllureFeature("Expected error UI Tests")]
         public void AddIncorrectProjectTest()
         {
             AddProjectPage addProjectPage = NavigationSteps
@@ -161,14 +166,18 @@ namespace Testiny.Tests.GUI
 
             Assert.Multiple(() =>
             {
+                AllureApi.Step("Input correct Project fields");
                 ProjectSteps
                     .InputProjectFields(projectCorrect, addProjectPage);
 
+                AllureApi.Step("Checking is the Login button enabled");
                 Assert.That(addProjectPage.AddButton.Enabled);
 
+                AllureApi.Step("Input incorrect Project fields");
                 ProjectSteps
                     .InputProjectFields(projectError, addProjectPage);
 
+                AllureApi.Step("Checking is the Login button enabled");
                 Assert.That(addProjectPage.AddButton.Enabled);
             });
         }

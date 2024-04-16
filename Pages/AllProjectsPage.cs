@@ -57,6 +57,7 @@ namespace Testiny.Pages
 
         protected override string GetEndpoint() => _endPoint;
 
+        [AllureStep("Checking is the All Projects page opened")]
         public override bool IsPageOpened()
         {
             try

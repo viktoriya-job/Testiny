@@ -26,6 +26,11 @@ namespace Testiny.Elements
             _uiElement.Submit();
         }
 
+        public string GetAttribute(string attributeName)
+        {
+            return _uiElement.GetAttribute(attributeName);
+        }
+
         public string Text => _uiElement.Text;
         public bool Displayed => _uiElement.Displayed;
         public bool Enabled => _uiElement.Enabled;

@@ -20,15 +20,15 @@ namespace Testiny.Pages
         public UIElement UploadInput => new(Driver, _uploadInputBy);
         public Button ImportButton => new(Driver, _importButtonBy);
 
-        [AllureStep("Select CSV")]
-        public ImportTestCasesPage SelectCSV()
+        [AllureStep("Select CSV option")]
+        public ImportTestCasesPage SelectCSVOption()
         {
             CSVButton.Click();
             return this;
         }
 
         [AllureStep("Upload File")]
-        public DialogPage UploadFile(string path)
+        public DialogPage FileUpload(string path)
         {
             UploadInput.SendKeys(path);
             return new DialogPage(Driver);
@@ -43,7 +43,7 @@ namespace Testiny.Pages
 
         protected override string GetEndpoint() => _endPoint;
 
-        [AllureStep("Checking is the Account settings page opened")]
+        [AllureStep("Checking is the Import TestCases page opened")]
         public override bool IsPageOpened()
         {
             try

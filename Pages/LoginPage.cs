@@ -22,21 +22,29 @@ namespace Testiny.Pages
         public UIElement ErrorLabel => new(Driver, _errorLabelBy);
 
         [AllureStep("Input Username Value")]
-        public LoginPage InputUsernameValue(string value)
+        public LoginPage UsernameValueInput(string value)
         {
             UsernameInput.SendKeys(value);
             return this;
         }
 
         [AllureStep("Input Password Value")]
-        public LoginPage InputPasswordValue(string value)
+        public LoginPage PasswordValueInput(string value)
         {
             PasswordInput.SendKeys(value);
             return this;
         }
 
+        [AllureStep("Click Login Button")]
+        public LoginPage LoginButtonClick()
+        {
+            LoginButton.Click();
+            return this;
+        }
+
         protected override string GetEndpoint() => _endPoint;
 
+        [AllureStep("Checking is the Login page opened")]
         public override bool IsPageOpened()
         {
             try

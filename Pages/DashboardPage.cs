@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Allure.NUnit.Attributes;
+using OpenQA.Selenium;
 using Testiny.Elements;
 
 namespace Testiny.Pages
@@ -17,6 +18,7 @@ namespace Testiny.Pages
 
         protected override string GetEndpoint() => _endPoint;
 
+        [AllureStep("Checking is the Dashboard page opened")]
         public override bool IsPageOpened()
         {
             try

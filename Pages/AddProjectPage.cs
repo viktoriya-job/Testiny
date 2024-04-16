@@ -29,42 +29,42 @@ namespace Testiny.Pages
         public UIElement ErrorLabel => new(Driver, _errorLabelBy);
 
         [AllureStep("Input Project Name Value")]
-        public AddProjectPage InputNameValue(string value)
+        public AddProjectPage NameValueInput(string value)
         {
             NameInput.SendKeys(value);
             return this;
         }
 
         [AllureStep("Input Project Key Value")]
-        public AddProjectPage InputProjectKeyValue(string value)
+        public AddProjectPage ProjectKeyValueInput(string value)
         {
             ProjectKeyInput.SendKeys(value);
             return this;
         }
 
         [AllureStep("Input Project Description Value")]
-        public AddProjectPage InputDescriptionValue(string value)
+        public AddProjectPage DescriptionValueInput(string value)
         {
             DescriptionInput.SendKeys(value);
             return this;
         }
 
         [AllureStep("Click Add Button")]
-        public ProjectPage ClickAddButton()
+        public ProjectPage AddButtonClick()
         {
             AddButton.Click();
             return new ProjectPage(Driver);
         }
 
         [AllureStep("Click Close Button")]
-        public AddProjectPage ClickCloseButton()
+        public AddProjectPage CloseButtonClick()
         {
             CloseButton.Click();
             return this;
         }
 
         [AllureStep("Click Delete Button")]
-        public DialogPage ClickDeleteButton()
+        public DialogPage DeleteButtonClick()
         {
             DeleteButton.Click();
             return new DialogPage(Driver);
@@ -75,6 +75,7 @@ namespace Testiny.Pages
             throw new NotImplementedException();
         }
 
+        [AllureStep("Checking is the Add Project page opened")]
         public override bool IsPageOpened()
         {
             try
