@@ -1,13 +1,12 @@
-﻿using Allure.Net.Commons;
-using Allure.NUnit.Attributes;
+﻿using Allure.NUnit.Attributes;
 using NLog;
-using System.Net;
 using Testiny.Helpers;
 using Testiny.Models;
+using System.Net;
+using Allure.Net.Commons;
 
 namespace Testiny.Tests.API
 {
-    [TestFixture]
     [AllureSuite("Project API Tests")]
     public class ProjectTests : BaseApiTest
     {

@@ -8,7 +8,6 @@ using Allure.Net.Commons;
 
 namespace Testiny.Tests.API
 {
-    [TestFixture]
     [AllureSuite("TestCases API Tests")]
     public class CaseTests : BaseApiTest
     {
