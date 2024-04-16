@@ -14,7 +14,7 @@ namespace Testiny.Pages
         private static readonly By _errorLabelBy = By.CssSelector("[data-testid='text-login-error:login-error-invalid']");
 
         public LoginPage(IWebDriver driver) : base(driver, false) { }
-        public LoginPage(IWebDriver driver, bool openPageByUrl) : base(driver, openPageByUrl) { }
+        public LoginPage(IWebDriver driver, bool openPageByUrl = false) : base(driver, openPageByUrl) { }
 
         public UIElement UsernameInput => new(Driver, _usernameInputBy);
         public UIElement PasswordInput => new(Driver, _passwordInputBy);

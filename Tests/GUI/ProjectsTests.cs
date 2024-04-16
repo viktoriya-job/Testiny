@@ -95,7 +95,7 @@ namespace Testiny.Tests.GUI
 
             ProjectPage projectPage = ProjectSteps
                 .AddProjectSuccessfull(projectAdd, addProjectPage);
-            Thread.Sleep(1000);
+            Thread.Sleep(1000); //pause to avoid UnhandledAlertException
 
             AllProjectsPage allProjectsPage = NavigationSteps.NavigateToAllProjectsPage();
 
@@ -125,7 +125,7 @@ namespace Testiny.Tests.GUI
 
             ProjectPage projectPage = ProjectSteps
                 .AddProjectSuccessfull(projectDel, addProjectPage);
-            Thread.Sleep(1000);
+            Thread.Sleep(1000); //pause to avoid UnhandledAlertException 
 
             AllProjectsPage allProjectsPage = NavigationSteps
                 .NavigateToAllProjectsPage();

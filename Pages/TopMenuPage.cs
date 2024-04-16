@@ -10,7 +10,7 @@ namespace Testiny.Pages
         private static readonly By _feedbackButtonBy = By.CssSelector("[data-testid='button-feedback']");
 
         public TopMenuPage(IWebDriver driver) : base(driver) { }
-        public TopMenuPage(IWebDriver driver, bool openPageByUrl) : base(driver, openPageByUrl) { }
+        public TopMenuPage(IWebDriver driver, bool openPageByUrl = false) : base(driver, openPageByUrl) { }
 
         public DropDownMenu ProjectsMenu => new(Driver, _projectsMenuBy);
         public Button FeedbackButton => new(Driver, _feedbackButtonBy);

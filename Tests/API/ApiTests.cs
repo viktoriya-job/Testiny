@@ -21,9 +21,9 @@ namespace Testiny.Tests.API
             string projectFilePath = Path.Combine(Configurator.LocationResources, "projectTestdata.json");
             string caseFilePath = Path.Combine(Configurator.LocationResources, "caseTestdata.json");
 
-            Project project = JsonHelper<Project>.FromJson(projectFilePath, FileMode.Open);
+            _projectCase = JsonHelper<Project>.FromJson(projectFilePath, FileMode.Open);
 
-            _projectCase = ProjectService.AddProject(project).Result;
+            _projectCase = ProjectService.AddProject(_projectCase).Result;
             Logger.Info(_projectCase.ToString());
 
             _cases = JsonHelper<List<Case>>.FromJson(caseFilePath, FileMode.Open);
