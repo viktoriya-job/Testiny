@@ -30,7 +30,7 @@ namespace Testiny.Steps
         [AllureStep("Navigate To Dashboard Page")]
         public DashboardPage NavigateToDashboardPage() => new DashboardPage(Driver, true);
 
-        [AllureStep("Navigate To Import Test Cases Page")]
-        public ImportTestCasesPage NavigateToImportTestCasesPage(string projectKey) => new ImportTestCasesPage(Driver, true, projectKey);
+        //[AllureStep("Navigate To Import Test Cases Page")]
+        //public ImportTestCasesPage NavigateToImportTestCasesPage(string projectKey) => new ImportTestCasesPage(Driver, true);
     }
 }

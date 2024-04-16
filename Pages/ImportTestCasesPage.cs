@@ -12,13 +12,14 @@ namespace Testiny.Pages
         private static readonly By _uploadInputBy = By.CssSelector("input[type='file']");
         private static readonly By _importButtonBy = By.CssSelector("[data-testid='button-execute']");
 
-
-        public ImportTestCasesPage(IWebDriver driver, bool openByUrl, string projectKey) : base(driver, openByUrl) 
-        {
-            _endPoint = String.Concat(projectKey,_endPoint);
-        }
+        //public ImportTestCasesPage(IWebDriver driver, bool openByUrl, string projectKey) : base(driver, openByUrl) 
+        //{
+        //    _endPoint = String.Concat(projectKey,_endPoint);
+        //}
 
         public ImportTestCasesPage(IWebDriver driver, bool openPageByUrl) : base(driver, openPageByUrl) { }
+        public ImportTestCasesPage(IWebDriver driver) : base(driver) { }
+
 
         public UIElement TitleLable => new(Driver, _titleLabelBy);
         public Button CSVButton => new(Driver, _csvButtonBy);

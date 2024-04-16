@@ -49,11 +49,18 @@ namespace Testiny.Pages
             }
         }
 
-        [AllureStep("Select record in All Projects Page")]
+        [AllureStep("Select record by Project Key")]
         public EditProjectPage SelectRecordByProjectKeyElement(UIElement element)
         {
             element.Click();
             return new EditProjectPage(Driver);
+        }
+
+        [AllureStep("Select record by Project Name")]
+        public ProjectPage SelectRecordByProjectNameElementLink(UIElement element)
+        {
+            element.Click();
+            return new ProjectPage(Driver);
         }
 
         protected override string GetEndpoint() => _endPoint;

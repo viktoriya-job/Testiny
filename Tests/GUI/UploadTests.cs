@@ -3,6 +3,7 @@ using Allure.NUnit.Attributes;
 using Testiny.Helpers.Configuration;
 using Testiny.Models;
 using Testiny.Pages;
+using Testiny.Steps;
 
 namespace Testiny.Tests.GUI
 {
@@ -16,16 +17,11 @@ namespace Testiny.Tests.GUI
             Description = "Test Project To Upload Cases from file"
         };
 
-        [SetUp]
-        public void AddProjectForUpload()
-        {
-            AddProjectPage addProjectPage = NavigationSteps
-                    .SuccessfulLogin(Configurator.Admin)
-                    .CreateProjectMenuSelect();
+        //[SetUp]
+        //public void AddProjectForUpload()
+        //{
 
-            ProjectSteps
-                .AddProjectSuccessfull(project, addProjectPage);
-        }
+        //}
 
         [Test]
         [AllureFeature("Positive UI Tests")]
@@ -33,19 +29,72 @@ namespace Testiny.Tests.GUI
         {
             string filePath = Path.Combine(Configurator.LocationResources, "testiny_testcase_import_sample.csv");
             
-            Thread.Sleep(2000); // pause to create constructor with ProjectKey
+            AddProjectPage addProjectPage = NavigationSteps
+                .SuccessfulLogin(Configurator.Admin)
+                .CreateProjectMenuSelect();
 
-            AllTestCasesPage allTestCasesPage = NavigationSteps
-                .NavigateToImportTestCasesPage(project.ProjectKey.ToUpper())
+            
+
+            ProjectPage projectPage = ProjectSteps
+                .AddProjectSuccessfull(project, addProjectPage);
+
+            //Thread.Sleep(1000); //pause to avoid StaleElementReferenceException
+
+
+            //AllTestCasesPage allTestCasesPage = ProjectSteps
+            //    .InportTestCasesFromCsvFile(projectPage, filePath);
+
+            AllTestCasesPage allTestCasesPage = projectPage
+                .TestcasesButtonClick()
+                .ImportButtonClick()
                 .SelectCSVOption()
                 .FileUpload(filePath)
                 .ConfirmButtonClick<ImportTestCasesPage>()
                 .ImportButtonClick();
 
             Assert.That(allTestCasesPage.IsPageOpened);
+            //v1
+            //Thread.Sleep(2000); // pause to create constructor with ProjectKey
+
+            //AllTestCasesPage allTestCasesPage = NavigationSteps
+            //    .NavigateToImportTestCasesPage(project.ProjectKey.ToUpper())
+            //    .SelectCSVOption()
+            //    .FileUpload(filePath)
+            //    .ConfirmButtonClick<ImportTestCasesPage>()
+            //    .ImportButtonClick();
+
+
+            //v2
+            //AllProjectsPage allProjectsPage = NavigationSteps
+            //    .NavigateToAllProjectsPage();
+
+            //var index = allProjectsPage.ProjectKeys.FindIndex(projectKey => projectKey.Text.Trim().ToUpper() == project.ProjectKey.ToUpper());
+
+            //AllTestCasesPage allTestCasesPage = allProjectsPage
+            //    .SelectRecordByProjectNameElementLink(allProjectsPage.ProjectNames[index])
+            //    .TestcasesButtonClick()
+            //    .ImportButtonClick()
+            //    .SelectCSVOption()
+            //    .FileUpload(filePath)
+            //    .ConfirmButtonClick<ImportTestCasesPage>()
+            //    .ImportButtonClick();
+
+            //v3
+            //ProjectPage projectPage = new ProjectPage(Driver);
+
+            //AllTestCasesPage allTestCasesPage = projectPage
+            //    .TestcasesButtonClick()
+            //    .ImportButtonClick()
+            //    .SelectCSVOption()
+            //    .FileUpload(filePath)
+            //    .ConfirmButtonClick<ImportTestCasesPage>()
+            //    .ImportButtonClick();
+
+
         }
 
-        [TearDown]
+        //[TearDown]
+        [Test]
         public void RemoveProjectForUpload()
         {
             AllProjectsPage allProjectsPage = NavigationSteps

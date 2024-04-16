@@ -17,6 +17,13 @@ namespace Testiny.Pages
         public Button AddTestcasesButton => new(Driver, _addTestcasesButtonBy);
         public TopMenuPage TopMenu => new TopMenuPage(Driver);
 
+        [AllureStep("Click Create Testcases Button")]
+        public AllTestCasesPage TestcasesButtonClick()
+        {
+            AddTestcasesButton.Click();
+            return new AllTestCasesPage(Driver);
+        }
+
         protected override string GetEndpoint()
         {
             throw new NotImplementedException();
