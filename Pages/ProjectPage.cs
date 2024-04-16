@@ -34,7 +34,7 @@ namespace Testiny.Pages
         {
             try
             {
-                return AddTestcasesButton.Displayed;
+                return AddTestcasesButton.Displayed && TitleLable.Displayed;
             }
             catch (Exception)
             {
