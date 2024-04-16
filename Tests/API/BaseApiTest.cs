@@ -16,12 +16,6 @@ namespace Testiny.Tests.API
         protected CaseService? CaseServiceNotAuth;
         protected Random Random = new Random();
 
-        //[OneTimeSetUp]
-        //public static void OneTimeSetup()
-        //{
-        //    AllureLifecycle.Instance.CleanupResultDirectory();
-        //}
-
         [OneTimeSetUp]
         public void SetUpApi()
         {
