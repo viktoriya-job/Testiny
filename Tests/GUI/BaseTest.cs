@@ -9,7 +9,7 @@ using Testiny.Steps;
 
 namespace Testiny.Tests;
 
-[Parallelizable(scope: ParallelScope.All)]
+[Parallelizable(scope: ParallelScope.Fixtures)]
 [FixtureLifeCycle(LifeCycle.InstancePerTestCase)]
 [AllureNUnit]
 public class BaseTest
