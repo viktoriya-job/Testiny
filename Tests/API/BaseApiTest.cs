@@ -1,6 +1,7 @@
 ﻿using Allure.Net.Commons;
 using Allure.NUnit;
 using NLog;
+using RestSharp;
 using Testiny.Clients;
 using Testiny.Services;
 

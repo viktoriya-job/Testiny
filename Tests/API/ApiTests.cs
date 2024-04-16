@@ -42,7 +42,6 @@ namespace Testiny.Tests.API
         [AllureSubSuite("TestCase API Tests")]
         [AllureFeature("API GET Method")]
         [AllureFeature("API NFE Tests")]
-        [AllureFeature("TestCase Tests")]
         public void GetCaseByIdTest()
         {
             AllureApi.Step("Sending a request");
@@ -66,7 +65,6 @@ namespace Testiny.Tests.API
         [AllureSubSuite("TestCase API Tests")]
         [AllureFeature("API GET Method")]
         [AllureFeature("API NFE Tests")]
-        [AllureFeature("TestCase Tests")]
         public void GetCasesByQueryTest()
         {
             AllureApi.Step("Sending a request");
@@ -93,8 +91,7 @@ namespace Testiny.Tests.API
         [AllureSubSuite("TestCase API Tests")]
         [AllureFeature("API GET Method")]
         [AllureFeature("API AFE Tests")]
-        [AllureFeature("TestCase Tests")]
-        public void GetCaseNotAuth()
+        public void GetCaseNotAuthTest()
         {
             AllureApi.Step("Sending a request with an invalid token");
             var response = CaseServiceNotAuth.GetCaseById(_cases[0].Id);
@@ -116,7 +113,6 @@ namespace Testiny.Tests.API
         [AllureSubSuite("Project API Tests")]
         [AllureFeature("API POST Method")]
         [AllureFeature("API NFE Tests")]
-        [AllureFeature("Project Tests")]
         public void AddProjectTest()
         {
             _project = new Project()
@@ -146,7 +142,6 @@ namespace Testiny.Tests.API
         [AllureSubSuite("Project API Tests")]
         [AllureFeature("API GET Method")]
         [AllureFeature("API NFE Tests")]
-        [AllureFeature("Project Tests")]
         public void GetProjectTest()
         {
             AllureApi.Step("Sending a request");
@@ -172,7 +167,6 @@ namespace Testiny.Tests.API
         [AllureSubSuite("Project API Tests")]
         [AllureFeature("API DELETE Method")]
         [AllureFeature("API NFE Tests")]
-        [AllureFeature("Project Tests")]
         public void RemoveProjectTest()
         {
             AllureApi.Step("Sending a request and processing response");
@@ -197,7 +191,6 @@ namespace Testiny.Tests.API
         [AllureSubSuite("Project API Tests")]
         [AllureFeature("API GET Method")]
         [AllureFeature("API AFE Tests")]
-        [AllureFeature("Project Tests")]
         public void GetDeletedProjectTest()
         {
             AllureApi.Step("Sending a request");
