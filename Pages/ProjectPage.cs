@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Allure.NUnit.Attributes;
+using OpenQA.Selenium;
 using Testiny.Elements;
 
 namespace Testiny.Pages
@@ -21,6 +22,7 @@ namespace Testiny.Pages
             throw new NotImplementedException();
         }
 
+        [AllureStep("Checking is the Project page opened")]
         public override bool IsPageOpened()
         {
             try

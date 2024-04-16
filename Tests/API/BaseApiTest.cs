@@ -1,7 +1,6 @@
 ﻿using Allure.Net.Commons;
 using Allure.NUnit;
 using NLog;
-using System.Reflection;
 using Testiny.Clients;
 using Testiny.Services;
 
@@ -11,7 +10,6 @@ namespace Testiny.Tests.API
     [AllureNUnit]
     public class BaseApiTest
     {
-        protected readonly string LocationResources = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Resources");
         protected readonly Logger Logger = LogManager.GetCurrentClassLogger();
         protected ProjectService? ProjectService;
         protected CaseService? CaseService;

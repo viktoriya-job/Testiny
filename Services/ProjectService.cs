@@ -1,4 +1,5 @@
-﻿using RestSharp;
+﻿using Allure.NUnit.Attributes;
+using RestSharp;
 using Testiny.Clients;
 using Testiny.Models;
 
@@ -21,6 +22,7 @@ namespace Testiny.Services
             return _client.ExecuteAsync<Project>(request);
         }
 
+        [AllureStep("Get Project By Id")]
         public Task<RestResponse> GetProject(int projectId)
         {
             var request = new RestRequest("api/v1/project/{id}")

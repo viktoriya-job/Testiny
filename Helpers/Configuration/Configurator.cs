@@ -81,5 +81,7 @@ namespace Testiny.Helpers.Configuration
         public static string? BrowserType => Configuration[nameof(BrowserType)];
 
         public static double WaitsTimeout => Double.Parse(Configuration[nameof(WaitsTimeout)]);
+
+        public static string LocationResources => Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Resources");
     }
 }

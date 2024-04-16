@@ -1,4 +1,5 @@
-﻿using RestSharp;
+﻿using Allure.NUnit.Attributes;
+using RestSharp;
 using Testiny.Clients;
 using Testiny.Models;
 
@@ -13,6 +14,7 @@ namespace Testiny.Services
             _client = client;
         }
 
+        [AllureStep("Get Case By Id")]
         public Task<RestResponse> GetCaseById(int caseId)
         {
             var request = new RestRequest("api/v1/testcase/{case_id}")
@@ -21,6 +23,7 @@ namespace Testiny.Services
             return _client.ExecuteAsync(request);
         }
 
+        [AllureStep("Get Cases By Query")]
         public Task<RestResponse> GetCasesByQuery(string query)
         {
             var request = new RestRequest("api/v1/testcase")

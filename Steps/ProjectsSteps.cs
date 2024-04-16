@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Allure.NUnit.Attributes;
+using OpenQA.Selenium;
 using Testiny.Models;
 using Testiny.Pages;
 
@@ -6,32 +7,35 @@ namespace Testiny.Steps
 {
     public class ProjectsSteps(IWebDriver driver) : BaseSteps(driver)
     {
+        [AllureStep("Adding project with correct project data")]
         public ProjectPage AddProjectSuccessfull(Project project, AddProjectPage addProjectPage)
         {
             return addProjectPage
-                    .InputNameValue(project.ProjectName)
-                    .InputProjectKeyValue(project.ProjectKey)
-                    .InputDescriptionValue(project.Description)
-                    .ClickAddButton();
+                    .NameValueInput(project.ProjectName)
+                    .ProjectKeyValueInput(project.ProjectKey)
+                    .DescriptionValueInput(project.Description)
+                    .AddButtonClick();
         }
 
+        [AllureStep("Adding project with correct project data, but checking 'Close' button")]
         public DialogPage AddProjectUnsuccessfull(Project project, AddProjectPage addProjectPage)
         {
             addProjectPage
-                    .InputNameValue(project.ProjectName)
-                    .InputProjectKeyValue(project.ProjectKey)
-                    .InputDescriptionValue(project.Description)
-                    .ClickCloseButton();
+                    .NameValueInput(project.ProjectName)
+                    .ProjectKeyValueInput(project.ProjectKey)
+                    .DescriptionValueInput(project.Description)
+                    .CloseButtonClick();
 
             return new DialogPage(Driver);
         }
 
+        [AllureStep("Input Project Fields")]
         public AddProjectPage InputProjectFields(Project project, AddProjectPage addProjectPage)
         {
             return addProjectPage
-                    .InputNameValue(project.ProjectName)
-                    .InputProjectKeyValue(project.ProjectKey)
-                    .InputDescriptionValue(project.Description);
+                    .NameValueInput(project.ProjectName)
+                    .ProjectKeyValueInput(project.ProjectKey)
+                    .DescriptionValueInput(project.Description);
         }
     }
 }

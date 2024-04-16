@@ -8,13 +8,14 @@ namespace Testiny.Pages
     {
         private static readonly By _projectsMenuBy = By.CssSelector("[data-testid='button-projects']>div");
         private static readonly By _accountMenuBy = By.CssSelector("[data-testid='button-account']>div");
-        private static readonly By _feedbackButtonBy = By.CssSelector("[data-testid='button-feedback']>div");
+        private static readonly By _feedbackButtonBy = By.CssSelector("[data-testid='button-feedback']");
 
         public TopMenuPage(IWebDriver driver) : base(driver) { }
         public TopMenuPage(IWebDriver driver, bool openPageByUrl) : base(driver, openPageByUrl) { }
 
         public DropDownMenu ProjectsMenu => new(Driver, _projectsMenuBy, false);
         public DropDownMenu AccountMenu => new(Driver, _accountMenuBy, true);
+        public Button FeedbackButton => new(Driver, _feedbackButtonBy);
 
         [AllureStep("Select the 'Create a new project' menu")]
         public AddProjectPage CreateProjectMenuSelect()
@@ -28,6 +29,7 @@ namespace Testiny.Pages
             throw new NotImplementedException();
         }
 
+        [AllureStep("Checking is the TopMenu Page opened")]
         public override bool IsPageOpened()
         {
             try

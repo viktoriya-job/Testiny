@@ -1,31 +1,25 @@
 ﻿using Allure.NUnit.Attributes;
-using OpenQA.Selenium;
-using System;
-using System.Reflection;
 using Testiny.Helpers.Configuration;
 using Testiny.Pages;
 
 namespace Testiny.Tests.GUI
 {
     [AllureSuite("Upload UI Tests")]
-    public class ImportTests : BaseTest
+    public class UploadTests : BaseTest
     {
         [Test]
-        [Category("Positive")]
-        public void ImportCSVFileTest()
+        [AllureFeature("Positive UI Tests")]
+        public void UploadCSVFileTest()
         {
-            string fileName = "testiny_testcase_import_sample.csv";
-
-            string location = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            string path = Path.Combine(location, "Resources", fileName);
+            string filePath = Path.Combine(Configurator.LocationResources, "testiny_testcase_import_sample.csv");
 
             NavigationSteps
                 .SuccessfulLogin(Configurator.Admin);
 
             AllTestCasesPage allTestCasesPage = NavigationSteps
                 .NavigateToImportTestCasesPage()
-                .SelectCSV()
-                .UploadFile(path)
+                .SelectCSVOption()
+                .FileUpload(filePath)
                 .ConfirmButtonClick<ImportTestCasesPage>()
                 .ImportButtonClick();
 

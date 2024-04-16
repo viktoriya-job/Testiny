@@ -3,6 +3,8 @@ using NLog;
 using Testiny.Helpers;
 using Testiny.Models;
 using System.Net;
+using Testiny.Helpers.Configuration;
+using Allure.Net.Commons;
 
 namespace Testiny.Tests.API
 {
@@ -16,8 +18,8 @@ namespace Testiny.Tests.API
         [OneTimeSetUp]
         public void AddData()
         {
-            string projectFilePath = Path.Combine(LocationResources, "projectTestdata.json");
-            string caseFilePath = Path.Combine(LocationResources, "caseTestdata.json");
+            string projectFilePath = Path.Combine(Configurator.LocationResources, "projectTestdata.json");
+            string caseFilePath = Path.Combine(Configurator.LocationResources, "caseTestdata.json");
 
             Project project = JsonHelper<Project>.FromJson(projectFilePath, FileMode.Open);
 
@@ -33,18 +35,21 @@ namespace Testiny.Tests.API
             }
 
             Assert.That(_cases.Count == 5);
-
             Logger.Info($"{_cases.Count} test-cases added to the project {_project.Id}, {_project.ProjectName}");
         }
 
         [Test]
-        [Category("GET Method NFE Tests")]
+        [AllureFeature("API GET Method")]
+        [AllureFeature("API NFE Tests")]
         public void GetCaseByIdTest()
         {
+            AllureApi.Step("Sending a request");
             var response = CaseService.GetCaseById(_cases[0].Id);
 
+            AllureApi.Step("Response processing");
             Case actualCase = JsonHelper<Case>.FromJson(response.Result.Content);
 
+            AllureApi.Step("Checking is the Status code is OK and data is correct");
             Assert.Multiple(() =>
             {
                 Assert.That(response.Result.StatusCode == HttpStatusCode.OK);
@@ -56,17 +61,21 @@ namespace Testiny.Tests.API
         }
 
         [Test]
-        [Category("GET Method NFE Tests")]
+        [AllureFeature("API GET Method")]
+        [AllureFeature("API NFE Tests")]
         public void GetCasesByQueryTest()
         {
+            AllureApi.Step("Sending a request");
             string query = "{\"filter\": {\"project_id\": " + $"{_project.Id}" + "}}";
             var response = CaseService.GetCasesByQuery(query);
 
+            AllureApi.Step("Response processing");
             Cases actualCases = JsonHelper<Cases>.FromJson(response.Result.Content);
 
             Logger.Info(actualCases.CaseList.Count());
             Logger.Info(_cases.Count());
 
+            AllureApi.Step("Checking is the Status code is OK and data is correct");
             Assert.Multiple(() =>
             {
                 Assert.That(response.Result.StatusCode == HttpStatusCode.OK);
@@ -77,13 +86,17 @@ namespace Testiny.Tests.API
         }
 
         [Test]
-        [Category("GET Method AFE Tests")]
+        [AllureFeature("API GET Method")]
+        [AllureFeature("API AFE Tests")]
         public void GetCaseNotAuth()
         {
+            AllureApi.Step("Sending a request with an invalid token");
             var response = CaseServiceNotAuth.GetCaseById(_cases[0].Id);
 
+            AllureApi.Step("Response processing");
             FailedResponse responseBody = JsonHelper<FailedResponse>.FromJson(response.Result.Content);
 
+            AllureApi.Step("Checking is the Status code is Forbidden and message is correct");
             Assert.Multiple(() =>
             {
                 Assert.That(response.Result.StatusCode == HttpStatusCode.Forbidden);
