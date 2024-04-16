@@ -6,7 +6,7 @@ using Testiny.Services;
 
 namespace Testiny.Tests.API
 {
-    [Parallelizable(scope: ParallelScope.Fixtures)]
+    //[Parallelizable(scope: ParallelScope.Fixtures)]
     [AllureNUnit]
     public class BaseApiTest
     {

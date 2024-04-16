@@ -28,7 +28,7 @@ steps:
   condition: always()
   displayName: Publish Report
   inputs:
-    allureVersion: 2.25.0
+    allureVersion: 2.27.0
     testResultsDir: .\bin\Debug\net8.0\allure-report\
 
 - task: PublishPipelineArtifact@1
