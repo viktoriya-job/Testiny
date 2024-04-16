@@ -14,6 +14,7 @@ namespace Testiny.Pages
 
         public UIElement TitleLable => new(Driver, _titleLabelBy);
         public Button AddButton => new(Driver, _addButtonBy);
+        public TopMenuPage TopMenuPage => new TopMenuPage(Driver);
 
         protected override string GetEndpoint() => _endPoint;
 

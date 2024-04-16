@@ -7,56 +7,57 @@ using Testiny.Helpers;
 using Testiny.Helpers.Configuration;
 using Testiny.Steps;
 
-namespace Testiny.Tests;
-
-[Parallelizable(scope: ParallelScope.All)]
-[FixtureLifeCycle(LifeCycle.InstancePerTestCase)]
-[AllureNUnit]
-public class BaseTest
+namespace Testiny.Tests
 {
-    protected IWebDriver Driver { get; private set; }
-    protected WaitsHelper WaitsHelper { get; private set; }
-
-    protected Random Random = new Random();
-
-    protected NavigationSteps NavigationSteps;
-    protected ProjectsSteps ProjectSteps;
-
-    [OneTimeSetUp]
-    public static void OneTimeSetup()
+    [Parallelizable(scope: ParallelScope.All)]
+    [FixtureLifeCycle(LifeCycle.InstancePerTestCase)]
+    [AllureNUnit]
+    public class BaseTest
     {
-        AllureLifecycle.Instance.CleanupResultDirectory();
-    }
+        protected IWebDriver Driver { get; private set; }
+        protected WaitsHelper WaitsHelper { get; private set; }
 
-    [SetUp]
-    public void FactoryDriverTest()
-    {
-        Driver = new Browser().Driver;
+        protected Random Random = new Random();
 
-        NavigationSteps = new NavigationSteps(Driver);
-        ProjectSteps = new ProjectsSteps(Driver);
+        protected NavigationSteps NavigationSteps;
+        protected ProjectsSteps ProjectSteps;
 
-        Driver.Navigate().GoToUrl(Configurator.AppSettings.URL);
-    }
-
-    [TearDown]
-    public void TearDown()
-    {
-        try
+        [OneTimeSetUp]
+        public static void OneTimeSetup()
         {
-            if (TestContext.CurrentContext.Result.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
-            {
-                Screenshot screenshot = ((ITakesScreenshot)Driver).GetScreenshot();
-                byte[] screenshotBytes = screenshot.AsByteArray;
-
-                AllureApi.AddAttachment("Screenshot", "image/png", screenshotBytes);
-                AllureApi.AddAttachment("error.txt", "text/plain", Encoding.UTF8.GetBytes(TestContext.CurrentContext.Result.Message));
-            }
+            AllureLifecycle.Instance.CleanupResultDirectory();
         }
 
-        finally
+        [SetUp]
+        public void FactoryDriverTest()
         {
-            Driver.Quit();
+            Driver = new Browser().Driver;
+
+            NavigationSteps = new NavigationSteps(Driver);
+            ProjectSteps = new ProjectsSteps(Driver);
+
+            Driver.Navigate().GoToUrl(Configurator.AppSettings.URL);
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            try
+            {
+                if (TestContext.CurrentContext.Result.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
+                {
+                    Screenshot screenshot = ((ITakesScreenshot)Driver).GetScreenshot();
+                    byte[] screenshotBytes = screenshot.AsByteArray;
+
+                    AllureApi.AddAttachment("Screenshot", "image/png", screenshotBytes);
+                    AllureApi.AddAttachment("error.txt", "text/plain", Encoding.UTF8.GetBytes(TestContext.CurrentContext.Result.Message));
+                }
+            }
+
+            finally
+            {
+                Driver.Quit();
+            }
         }
     }
 }

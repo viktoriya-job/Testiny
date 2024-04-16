@@ -21,7 +21,7 @@ namespace Testiny.Tests.GUI
         public void UploadCSVFileTest()
         {
             string filePath = Path.Combine(Configurator.LocationResources, "testiny_testcase_import_sample.csv");
-            
+
             AddProjectPage addProjectPage = NavigationSteps
                 .SuccessfulLogin(Configurator.Admin)
                 .CreateProjectMenuSelect();

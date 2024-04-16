@@ -130,18 +130,16 @@ namespace Testiny.Tests.GUI
 
             var index = allProjectsPage.ProjectKeys.FindIndex(projectKey => projectKey.Text.Trim().ToUpper() == projectDel.ProjectKey.ToUpper());
 
-            AllProjectsPage allProjectsPageNew = allProjectsPage
+            allProjectsPage
                 .SelectRecordByProjectKeyElement(allProjectsPage.ProjectKeys[index])
                 .DeleteButtonClick()
                 .ConfirmButtonClick<AllProjectsPage>();
 
-            NavigationSteps
-                .NavigateToDashboardPage();
+            DashboardPage dashboardPage = NavigationSteps
+                 .NavigateToDashboardPage();
 
-            TopMenuPage topMenuPage = new TopMenuPage(Driver);
-
-            AllureApi.Step("Checking is the project list does not contain removed project");
-            Assert.That(!topMenuPage.ProjectsMenu.GetOptions().Contains(projectDel.ProjectName));
+            AllureApi.Step("Checking is the project list on DropDown menu does not contain removed project");
+            Assert.That(!dashboardPage.TopMenuPage.ProjectsMenu.GetOptions().Contains(projectDel.ProjectName));
         }
 
         [Test]
@@ -160,7 +158,7 @@ namespace Testiny.Tests.GUI
         }
 
         [Test]
-        [AllureSubSuite("Add / Remove project Tests")]
+        [AllureSubSuite("Checking input fields Tests")]
         [AllureFeature("Expected error UI Tests")]
         public void AddIncorrectProjectTest()
         {
