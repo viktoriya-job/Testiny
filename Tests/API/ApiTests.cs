@@ -69,13 +69,11 @@ namespace Testiny.Tests.API
         {
             AllureApi.Step("Sending a request");
             string query = "{\"filter\": {\"project_id\": " + $"{_projectCase.Id}" + "}}";
+            
             var response = CaseService.GetCasesByQuery(query);
 
             AllureApi.Step("Response processing");
             Cases actualCases = JsonHelper<Cases>.FromJson(response.Result.Content);
-
-            Logger.Info(actualCases.CaseList.Count());
-            Logger.Info(_cases.Count());
 
             AllureApi.Step("Checking is the Status code is OK and data is correct");
             Assert.Multiple(() =>
@@ -106,6 +104,30 @@ namespace Testiny.Tests.API
                 Assert.That(responseBody.Code, Is.EqualTo("API_ACCESS_DENIED"));
                 Assert.That(responseBody.Message, Is.EqualTo("Invalid API key"));
             });
+        }
+
+        [Test]
+        [AllureSubSuite("Project API Tests")]
+        [AllureFeature("API GET Method")]
+        [AllureFeature("API NFE Tests")]
+        public void GetProjectTest()
+        {
+            AllureApi.Step("Sending a request");
+            var result = ProjectService.GetProject(_projectCase.Id);
+
+            AllureApi.Step("Response processing");
+            Project actualProject = JsonHelper<Project>.FromJson(result.Result.Content);
+
+            AllureApi.Step("Checking is the Status code is OK and data is correct");
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Result.StatusCode == HttpStatusCode.OK);
+                Assert.That(actualProject.Id, Is.EqualTo(_projectCase.Id));
+                Assert.That(actualProject.ProjectName, Is.EqualTo(_projectCase.ProjectName));
+                Assert.That(actualProject.Description, Is.EqualTo(_projectCase.Description));
+            });
+
+            Logger.Info(actualProject.ToString());
         }
 
         [Test]
@@ -140,31 +162,6 @@ namespace Testiny.Tests.API
         [Test]
         [Order(2)]
         [AllureSubSuite("Project API Tests")]
-        [AllureFeature("API GET Method")]
-        [AllureFeature("API NFE Tests")]
-        public void GetProjectTest()
-        {
-            AllureApi.Step("Sending a request");
-            var result = ProjectService.GetProject(_project.Id);
-
-            AllureApi.Step("Response processing");
-            Project actualProject = JsonHelper<Project>.FromJson(result.Result.Content);
-
-            AllureApi.Step("Checking is the Status code is OK and data is correct");
-            Assert.Multiple(() =>
-            {
-                Assert.That(result.Result.StatusCode == HttpStatusCode.OK);
-                Assert.That(actualProject.Id, Is.EqualTo(_project.Id));
-                Assert.That(actualProject.ProjectName, Is.EqualTo(_project.ProjectName));
-                Assert.That(actualProject.Description, Is.EqualTo(_project.Description));
-            });
-
-            Logger.Info(actualProject.ToString());
-        }
-
-        [Test]
-        [Order(3)]
-        [AllureSubSuite("Project API Tests")]
         [AllureFeature("API DELETE Method")]
         [AllureFeature("API NFE Tests")]
         public void RemoveProjectTest()
@@ -187,7 +184,7 @@ namespace Testiny.Tests.API
         }
 
         [Test]
-        [Order(4)]
+        [Order(3)]
         [AllureSubSuite("Project API Tests")]
         [AllureFeature("API GET Method")]
         [AllureFeature("API AFE Tests")]
