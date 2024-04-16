@@ -49,6 +49,7 @@ namespace Testiny.Tests.API
             AllureApi.Step("Response processing");
             Case actualCase = JsonHelper<Case>.FromJson(response.Result.Content);
 
+            AllureApi.Step("Checking is the Status code is OK and data is correct");
             Assert.Multiple(() =>
             {
                 Assert.That(response.Result.StatusCode == HttpStatusCode.OK);
@@ -74,6 +75,7 @@ namespace Testiny.Tests.API
             Logger.Info(actualCases.CaseList.Count());
             Logger.Info(_cases.Count());
 
+            AllureApi.Step("Checking is the Status code is OK and data is correct");
             Assert.Multiple(() =>
             {
                 Assert.That(response.Result.StatusCode == HttpStatusCode.OK);
@@ -88,12 +90,13 @@ namespace Testiny.Tests.API
         [AllureFeature("API AFE Tests")]
         public void GetCaseNotAuth()
         {
-            AllureApi.Step("Sending a request");
+            AllureApi.Step("Sending a request with an invalid token");
             var response = CaseServiceNotAuth.GetCaseById(_cases[0].Id);
 
             AllureApi.Step("Response processing");
             FailedResponse responseBody = JsonHelper<FailedResponse>.FromJson(response.Result.Content);
 
+            AllureApi.Step("Checking is the Status code is Forbidden and message is correct");
             Assert.Multiple(() =>
             {
                 Assert.That(response.Result.StatusCode == HttpStatusCode.Forbidden);

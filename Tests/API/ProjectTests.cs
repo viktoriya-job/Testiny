@@ -26,8 +26,11 @@ namespace Testiny.Tests.API
             };
 
             AllureApi.Step("Sending a request and processing response");
+            AllureApi.AddTestParameter("Project Name", _project.ProjectName);
+            AllureApi.AddTestParameter("Project Description", _project.Description);
             var actualProject = ProjectService.AddProject(_project);
 
+            AllureApi.Step("Checking is the data is correct");
             Assert.Multiple(() =>
             {
                 Assert.That(actualProject.Result.ProjectName, Is.EqualTo(_project.ProjectName));
@@ -50,6 +53,7 @@ namespace Testiny.Tests.API
             AllureApi.Step("Response processing");
             Project actualProject = JsonHelper<Project>.FromJson(result.Result.Content);
 
+            AllureApi.Step("Checking is the Status code is OK and data is correct");
             Assert.Multiple(() =>
             {
                 Assert.That(result.Result.StatusCode == HttpStatusCode.OK);
@@ -68,9 +72,11 @@ namespace Testiny.Tests.API
         public void RemoveProjectTest()
         {
             AllureApi.Step("Sending a request and processing response");
+            AllureApi.AddTestParameter("Project Id", _project.Id);
             int projectId = _project.Id;
             var actualProject = ProjectService.RemoveProject(projectId);
 
+            AllureApi.Step("Checking is the data is correct");
             Assert.Multiple(() =>
             {
                 Assert.That(actualProject.Result.Id, Is.EqualTo(projectId));
@@ -94,6 +100,7 @@ namespace Testiny.Tests.API
             AllureApi.Step("Response processing");
             FailedResponse response = JsonHelper<FailedResponse>.FromJson(result.Result.Content);
 
+            AllureApi.Step("Checking is the Status code is NotFound and message is correct");
             Assert.Multiple(() =>
             {
                 Assert.That(result.Result.StatusCode == HttpStatusCode.NotFound);
