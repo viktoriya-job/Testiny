@@ -27,6 +27,7 @@ namespace Testiny.Tests.GUI
         [TestCase("")]
         [TestCase("Pr")]
         [TestCase("Pr123")]
+        [AllureSubSuite("Checking input fields Tests")]
         [AllureFeature("Positive UI Tests")]
         public void EnterProjectKeyValueSuccessTest(string projectKey)
         {
@@ -50,6 +51,7 @@ namespace Testiny.Tests.GUI
 
         [TestCase("P")]
         [TestCase("Pr1234")]
+        [AllureSubSuite("Checking input fields Tests")]
         [AllureFeature("Negative UI Tests")]
         public void EnterProjectKeyValueUnsuccessTest(string projectKey)
         {
@@ -76,6 +78,7 @@ namespace Testiny.Tests.GUI
         }
 
         [Test]
+        [AllureSubSuite("Add / Remove project Tests")]
         [AllureFeature("Positive UI Tests")]
         public void AddProjectTest()
         {
@@ -105,6 +108,7 @@ namespace Testiny.Tests.GUI
         }
 
         [Test]
+        [AllureSubSuite("Add / Remove project Tests")]
         [AllureFeature("Positive UI Tests")]
         public void RemoveProjectTest()
         {
@@ -143,6 +147,7 @@ namespace Testiny.Tests.GUI
         }
 
         [Test]
+        [AllureSubSuite("Dialog Window Tests")]
         [AllureFeature("Positive UI Tests")]
         public void DialogWindowTest()
         {
@@ -157,6 +162,7 @@ namespace Testiny.Tests.GUI
         }
 
         [Test]
+        [AllureSubSuite("Add / Remove project Tests")]
         [AllureFeature("Expected error UI Tests")]
         public void AddIncorrectProjectTest()
         {
