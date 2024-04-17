@@ -10,7 +10,8 @@ namespace Testiny.Pages
         private static readonly By _nameInputBy = By.CssSelector("[data-testid='textbox-name']");
         private static readonly By _projectKeyInputBy = By.CssSelector("[data-testid='textbox-key']");
         private static readonly By _descriptionInputBy = By.CssSelector("[data-testid='textbox-description']");
-        private static readonly By _deleteButtonBy = By.CssSelector("[data-testid='section-project_edit'] button[data-testid='button-more_single:delete']");
+        private static readonly By _deleteButtonBy = By
+            .CssSelector("[data-testid='section-project_edit'] button[data-testid='button-more_single:delete']");
 
         public EditProjectPage(IWebDriver driver) : base(driver) { }
 
@@ -19,7 +20,6 @@ namespace Testiny.Pages
         public UIElement ProjectKeyInput => new(Driver, _projectKeyInputBy);
         public UIElement DescriptionInput => new(Driver, _descriptionInputBy);
         public Button DeleteButton => new(Driver, _deleteButtonBy);
-
 
         [AllureStep("Click Delete Button")]
         public DialogPage DeleteButtonClick()
@@ -45,6 +45,5 @@ namespace Testiny.Pages
                 return false;
             }
         }
-
     }
 }
