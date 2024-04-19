@@ -1,0 +1,6 @@
+folder,title,precondition,steps,expected_result,key
+"First","Configure a thing","Thing is available","This is the steps to take for the first TC","These are the expected results for the TC",""
+"First","Configure another thing","","This tescase has no precondition and no expected result. Easy.","",""
+"","Verify moon logic","Moon is in the sky","This testcase is not in any folder but otherwise its fine.","Moon still there",""
+"Second","Configure a thing","","This tescase has the same title as the first one but is in a different folder","Nothing","9993116"
+"Second","No steps, only a title","","","Nothing",""
