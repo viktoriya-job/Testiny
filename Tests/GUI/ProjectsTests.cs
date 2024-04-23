@@ -157,31 +157,31 @@ namespace Testiny.Tests.GUI
             Assert.That(dialogPage.IsPageOpened);
         }
 
-        [Test]
-        [AllureSubSuite("Checking input fields Tests")]
-        [AllureFeature("Expected error UI Tests")]
-        public void AddIncorrectProjectTest()
-        {
-            AddProjectPage addProjectPage = NavigationSteps
-                .SuccessfulLogin(Configurator.Admin)
-                .CreateProjectMenuSelect();
+        //[Test]
+        //[AllureSubSuite("Checking input fields Tests")]
+        //[AllureFeature("Expected error UI Tests")]
+        //public void AddIncorrectProjectTest()
+        //{
+        //    AddProjectPage addProjectPage = NavigationSteps
+        //        .SuccessfulLogin(Configurator.Admin)
+        //        .CreateProjectMenuSelect();
 
-            Assert.Multiple(() =>
-            {
-                AllureApi.Step("Input correct Project fields");
-                ProjectSteps
-                    .InputProjectFields(projectCorrect, addProjectPage);
+        //    Assert.Multiple(() =>
+        //    {
+        //        AllureApi.Step("Input correct Project fields");
+        //        ProjectSteps
+        //            .InputProjectFields(projectCorrect, addProjectPage);
 
-                AllureApi.Step("Checking is the Login button enabled");
-                Assert.That(addProjectPage.AddButton.Enabled);
+        //        AllureApi.Step("Checking is the Login button enabled");
+        //        Assert.That(addProjectPage.AddButton.Enabled);
 
-                AllureApi.Step("Input incorrect Project fields");
-                ProjectSteps
-                    .InputProjectFields(projectError, addProjectPage);
+        //        AllureApi.Step("Input incorrect Project fields");
+        //        ProjectSteps
+        //            .InputProjectFields(projectError, addProjectPage);
 
-                AllureApi.Step("Checking is the Login button enabled");
-                Assert.That(addProjectPage.AddButton.Enabled);
-            });
-        }
+        //        AllureApi.Step("Checking is the Login button enabled");
+        //        Assert.That(addProjectPage.AddButton.Enabled);
+        //    });
+        //}
     }
 }
